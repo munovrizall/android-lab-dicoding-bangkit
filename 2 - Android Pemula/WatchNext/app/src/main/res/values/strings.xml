@@ -1,0 +1,120 @@
+<resources>
+    <string name="app_name">Watch Next</string>
+
+    <string-array name="data_title">
+        <item>The Shawshank Redemption</item>
+        <item>The Godfather</item>
+        <item>The Dark Knight</item>
+        <item>12 Angry Men</item>
+        <item>Schindler\'s List</item>
+        <item>The Lord of the Rings: The Return of the King</item>
+        <item>Forrest Gump</item>
+        <item>Fight Club</item>
+        <item>Inception</item>
+        <item>The Matrix</item>
+    </string-array>
+
+    <string-array name="data_plot">
+        <item>A banker convicted of uxoricide forms a friendship over a quarter century with a hardened convict, while maintaining his innocence and trying to remain hopeful through simple compassion.</item>
+        <item>The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.</item>
+        <item>When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.</item>
+        <item>The jury in a New York City murder trial is frustrated by a single member whose skeptical caution forces them to more carefully consider the evidence before jumping to a hasty verdict.</item>
+        <item>In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.</item>
+        <item>Gandalf and Aragorn lead the World of Men against Sauron\'s army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.</item>
+        <item>The history of the United States from the 1950s to the \'70s unfolds from the perspective of an Alabama man with an IQ of 75, who yearns to be reunited with his childhood sweetheart.</item>
+        <item>An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.</item>
+        <item>A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.</item>
+        <item>When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers the shocking truth--the life he knows is the elaborate deception of an evil cyber-intelligence.</item>
+    </string-array>
+
+    <string-array name="data_runtime">
+        <item>2h 22m</item>
+        <item>2h 55m</item>
+        <item>2h 32m</item>
+        <item>1h 36m</item>
+        <item>3h 15m</item>
+        <item>3h 21m</item>
+        <item>2h 22m</item>
+        <item>2h 19m</item>
+        <item>2h 28m</item>
+        <item>2h 16m</item>
+    </string-array>
+
+    <string-array name="data_rating">
+        <item>9.3</item>
+        <item>9.2</item>
+        <item>9</item>
+        <item>9</item>
+        <item>9</item>
+        <item>9</item>
+        <item>8.8</item>
+        <item>8.8</item>
+        <item>8.8</item>
+        <item>8.7</item>
+    </string-array>
+
+    <string-array name="data_genre">
+        <item>Drama</item>
+        <item>Crime, Drama</item>
+        <item>Action, Crime, Drama, Thriller</item>
+        <item>Crime, Drama</item>
+        <item>Biography, Drama, History</item>
+        <item>Action, Adventure, Drama, Fantasy</item>
+        <item>Drama, Romance</item>
+        <item>Drama</item>
+        <item>Action, Adventure, Sci-fi, Thriller</item>
+        <item>Action, Sci-fi</item>
+    </string-array>
+
+    <string-array name="data_release_time">
+        <item>14 October 1994</item>
+        <item>24 March 1972</item>
+        <item>18 July 2008</item>
+        <item>10 April 1957</item>
+        <item>4 February 1994</item>
+        <item>17 December 2003</item>
+        <item>6 July 1994</item>
+        <item>15 October 1999</item>
+        <item>16 July 2010</item>
+        <item>31 March 1999</item>
+    </string-array>
+
+    <string-array name="data_actor">
+        <item>Tim Robbins, Morgan Freeman, Bob Gunton</item>
+        <item>Marlon Brando, Al Pacino, James Caan</item>
+        <item>Christian Bale, Heath Ledger, Aaron Eckhart</item>
+        <item>Henry Fonda, Lee J. Cobb, Martin Balsam</item>
+        <item>Liam Neeson, Ralph Fiennes, Ben Kingsley</item>
+        <item>Elijah Wood, Viggo Mortensen, IanMcKellen</item>
+        <item>Tom Hanks, Robin Wright, Gary Sinise</item>
+        <item>Brad Pitt, Edward Norton, Meat Loaf</item>
+        <item>Leonardo DiCaprio, Joseph Gordon, Elliot Page</item>
+        <item>Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss</item>
+    </string-array>
+
+    <integer-array name="data_cover">
+        <item>@drawable/cover_1</item>
+        <item>@drawable/cover_2</item>
+        <item>@drawable/cover_3</item>
+        <item>@drawable/cover_4</item>
+        <item>@drawable/cover_5</item>
+        <item>@drawable/cover_6</item>
+        <item>@drawable/cover_7</item>
+        <item>@drawable/cover_8</item>
+        <item>@drawable/cover_9</item>
+        <item>@drawable/cover_10</item>
+    </integer-array>
+
+    <integer-array name="data_poster">
+        <item>@drawable/poster_1</item>
+        <item>@drawable/poster_2</item>
+        <item>@drawable/poster_3</item>
+        <item>@drawable/poster_4</item>
+        <item>@drawable/poster_5</item>
+        <item>@drawable/poster_6</item>
+        <item>@drawable/poster_7</item>
+        <item>@drawable/poster_8</item>
+        <item>@drawable/poster_9</item>
+        <item>@drawable/poster_10</item>
+    </integer-array>
+</resources>
