@@ -9,9 +9,9 @@ data class Movies(
     val plot: String,
     val runtime: String,
     val rating: String,
+    val cover: Int,
     val genre: String,
     val releaseTime: String,
     val actor: String,
-    val cover: Int,
     val poster: Int
 ): Parcelable
