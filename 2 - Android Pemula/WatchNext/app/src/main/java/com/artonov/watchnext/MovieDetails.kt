@@ -1,5 +1,6 @@
 package com.artonov.watchnext
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -27,8 +28,6 @@ class MovieDetails : AppCompatActivity() {
              intent.getParcelableExtra<Movies>(EXTRA_MOVIE)
         }
 
-        Log.d("Movie Details", dataMovie.toString())
-
         binding.apply {
             tvTitle.text = dataMovie?.title
             tvItemGenre.text = dataMovie?.actor
@@ -40,6 +39,20 @@ class MovieDetails : AppCompatActivity() {
             if (dataMovie != null) {
                 ivImagePoster.setImageResource(dataMovie.poster)
                 ivCover.setImageResource(dataMovie.cover)
+            }
+            actionShare.setOnClickListener {
+                val shareText = "I recommend you to watch ${dataMovie?.title}. This movie rating is ${dataMovie?.rating}!!!"
+
+                val shareIntent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, shareText)
+                    type = "text/plain"
+                }
+
+                startActivity(Intent.createChooser(shareIntent, "Share via"))
+            }
+            actionBack.setOnClickListener() {
+                finish()
             }
         }
 

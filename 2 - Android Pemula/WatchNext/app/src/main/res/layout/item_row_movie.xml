@@ -10,6 +10,8 @@
     android:layout_marginTop="8dp"
     android:layout_marginEnd="16dp"
     android:layout_marginBottom="8dp"
+    android:backgroundTint="#37394E"
+
     card_view:cardCornerRadius="24dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,6 +39,7 @@
             android:layout_toEndOf="@id/img_item_photo"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="@color/white"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/img_item_photo"
             card_view:layout_constraintTop_toTopOf="@+id/img_item_photo"
@@ -49,6 +52,7 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="3"
+            android:textColor="@color/white"
             android:textSize="15sp"
             card_view:layout_constraintEnd_toEndOf="@+id/tv_item_name"
             card_view:layout_constraintStart_toStartOf="@+id/tv_item_name"
@@ -61,6 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10.0"
+            android:textColor="@color/white"
             android:textSize="12sp"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="@+id/tv_item_name" />
@@ -81,6 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
             android:text="2h 0m"
+            android:textColor="@color/white"
             android:textSize="12sp"
             card_view:layout_constraintBottom_toBottomOf="@id/tv_item_rating"
             card_view:layout_constraintEnd_toStartOf="@id/ic_rating"

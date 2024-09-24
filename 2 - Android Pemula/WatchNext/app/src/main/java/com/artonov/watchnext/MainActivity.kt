@@ -1,5 +1,6 @@
 package com.artonov.watchnext
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -8,11 +9,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.artonov.watchnext.databinding.ActivityMainBinding
-import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val carouselList = mutableListOf<CarouselItem>()
     private val movieList = ArrayList<Movies>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,11 +24,16 @@ class MainActivity : AppCompatActivity() {
         showCarousel()
         movieList.addAll(getListMovies())
         showRecyclerList()
+
+
+        binding.aboutPage.setOnClickListener() {
+            startActivity(Intent(this@MainActivity, AboutActivity::class.java))
+        }
     }
 
     private fun showCarousel() {
         val imageResources = listOf(
-            R.drawable.carousel_1, // Ganti dengan nama file gambar di folder drawable Anda
+            R.drawable.carousel_1,
             R.drawable.carousel_2,
             R.drawable.carousel_3,
             R.drawable.carousel_4

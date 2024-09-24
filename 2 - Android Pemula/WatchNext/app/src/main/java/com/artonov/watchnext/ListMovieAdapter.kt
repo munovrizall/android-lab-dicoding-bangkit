@@ -31,7 +31,7 @@ class ListMovieAdapter(private val listMovie: ArrayList<Movies>) :
 
         holder.itemView.setOnClickListener() {
             val intentDetail = Intent(holder.itemView.context, MovieDetails::class.java)
-            intentDetail.putExtra(MovieDetails.EXTRA_MOVIE, listMovie[holder.bindingAdapterPosition])
+            intentDetail.putExtra(MovieDetails.EXTRA_MOVIE, listMovie[holder.position])
             holder.itemView.context.startActivity(intentDetail)
         }
     }
