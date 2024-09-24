@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.artonov.watchnext.databinding.ActivityMainBinding
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
@@ -20,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.rvMovies.setHasFixedSize(true)
-        binding.carouselItemContainer.registerLifecycle(lifecycle)
 
         showCarousel()
         movieList.addAll(getListMovies())
@@ -28,27 +28,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showCarousel() {
-        carouselList.add(
-            CarouselItem(
-                imageDrawable = R.drawable.carousel_1
-            )
+        val imageResources = listOf(
+            R.drawable.carousel_1, // Ganti dengan nama file gambar di folder drawable Anda
+            R.drawable.carousel_2,
+            R.drawable.carousel_3,
+            R.drawable.carousel_4
         )
-        carouselList.add(
-            CarouselItem(
-                imageDrawable = R.drawable.carousel_2
-            )
-        )
-        carouselList.add(
-            CarouselItem(
-                imageDrawable = R.drawable.carousel_3
-            )
-        )
-        carouselList.add(
-            CarouselItem(
-                imageDrawable = R.drawable.carousel_4
-            )
-        )
-        binding.carouselItemContainer.setData(carouselList)
+
+        binding.carouselItemContainer.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.carouselItemContainer.adapter = CarouselAdapter(imageResources)
     }
 
     private fun getListMovies(): ArrayList<Movies> {
