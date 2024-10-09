@@ -22,6 +22,7 @@ import com.artonov.codelabretrofit.databinding.ActivityMainBinding
 import com.artonov.codelabretrofit.ui.MainViewModel
 import com.artonov.codelabretrofit.ui.ReviewAdapter
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,7 +38,10 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+        val mainViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        ).get(MainViewModel::class.java)
         mainViewModel.restaurant.observe(this) { restaurant ->
             setRestaurantData(restaurant)
         }
@@ -55,8 +59,18 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.isLoading.observe(this) {
             showLoading(it)
         }
-        
-        binding.btnSend.setOnClickListener() {view ->
+
+        mainViewModel.snackbarText.observe(this) {
+            it.getContentIfNotHandled()?.let { snackBarText ->
+
+                Snackbar.make(
+                    window.decorView.rootView,
+                    snackBarText,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
+        binding.btnSend.setOnClickListener() { view ->
             mainViewModel.postReview(binding.edReview.text.toString())
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
