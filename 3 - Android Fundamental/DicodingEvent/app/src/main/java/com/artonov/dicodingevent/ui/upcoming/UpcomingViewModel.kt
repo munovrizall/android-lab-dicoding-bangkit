@@ -22,7 +22,6 @@ class UpcomingViewModel : ViewModel() {
     companion object {
         private const val TAG = "UpcomingViewModel"
         private const val UPCOMING_ID = "1"
-        private const val FINISHED_ID = "0"
     }
 
     init {

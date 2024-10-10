@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.artonov.dicodingevent.R
 import com.artonov.dicodingevent.data.response.ListEventsItem
 import com.artonov.dicodingevent.databinding.FragmentUpcomingBinding
-import com.artonov.dicodingevent.databinding.ItemEventBinding
+import com.artonov.dicodingevent.databinding.ItemUpcomingEventBinding
 import com.bumptech.glide.Glide
 
 class UpcomingAdapter : ListAdapter<ListEventsItem, UpcomingAdapter.ViewHolder>(DIFF_CALLBACK) {
 
-    class ViewHolder(val binding: ItemEventBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ItemUpcomingEventBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(eventsItem: ListEventsItem) {
             binding.apply {
                 tvItemName.text = eventsItem.name
@@ -28,7 +28,7 @@ class UpcomingAdapter : ListAdapter<ListEventsItem, UpcomingAdapter.ViewHolder>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingAdapter.ViewHolder {
-        val binding = ItemEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemUpcomingEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
