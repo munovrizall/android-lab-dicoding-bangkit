@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -32,6 +33,22 @@ class FinishedFragment : Fragment() {
             setFinishedEventData(upcomingEvents)
         }
 
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    finishedViewModel.searchEvents(query)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrEmpty()) {
+                    finishedViewModel.showFinishedEvents()
+                }
+                return true
+            }
+        })
+
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvListEvent.layoutManager = layoutManager
 
@@ -44,6 +61,8 @@ class FinishedFragment : Fragment() {
                 Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
             }
         }
+
+
     }
 
     private fun setFinishedEventData(eventsItem: List<ListEventsItem>) {
