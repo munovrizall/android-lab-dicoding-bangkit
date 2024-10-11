@@ -11,23 +11,23 @@ import com.bumptech.glide.Glide
 
 class HomeCarouselAdapter : ListAdapter<ListEventsItem, HomeCarouselAdapter.ViewHolder>(DIFF_CALLBACK) {
 
-    class ViewHolder(val binding: ItemCarouselEventBinding) :
+    class ViewHolder(private val binding: ItemCarouselEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(eventsItem: ListEventsItem) {
             Glide.with(binding.root.context)
                 .load(eventsItem.imageLogo)
-                .into(binding.imgItemPhoto);
+                .into(binding.imgItemPhoto)
         }
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeCarouselAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             ItemCarouselEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: HomeCarouselAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
     }

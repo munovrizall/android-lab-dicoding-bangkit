@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.artonov.dicodingevent.data.response.DetailEventResponse
 import com.artonov.dicodingevent.data.response.Event
-import com.artonov.dicodingevent.data.response.ListEventsItem
 import com.artonov.dicodingevent.data.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback

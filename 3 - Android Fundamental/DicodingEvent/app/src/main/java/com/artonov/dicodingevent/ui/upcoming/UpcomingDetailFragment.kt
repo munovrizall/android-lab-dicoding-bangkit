@@ -3,19 +3,14 @@ package com.artonov.dicodingevent.ui.upcoming
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.artonov.dicodingevent.R
 import com.artonov.dicodingevent.data.response.Event
-import com.artonov.dicodingevent.data.response.ListEventsItem
-import com.artonov.dicodingevent.databinding.FragmentUpcomingBinding
 import com.artonov.dicodingevent.databinding.FragmentUpcomingDetailBinding
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
@@ -29,7 +24,7 @@ class UpcomingDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentUpcomingDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -42,7 +37,7 @@ class UpcomingDetailFragment : Fragment() {
 
         val factory = UpcomingDetailViewModelFactory(eventId)
         val upcomingDetailViewModel =
-            ViewModelProvider(this, factory).get(UpcomingDetailViewModel::class.java)
+            ViewModelProvider(this, factory)[UpcomingDetailViewModel::class.java]
 
         upcomingDetailViewModel.event.observe(viewLifecycleOwner) { eventData ->
             setEventData(eventData)
@@ -63,9 +58,10 @@ class UpcomingDetailFragment : Fragment() {
             tvEventLocation.text = event.cityName
             tvEventDate.text = formatTime(event.beginTime)
             if (remainingQuota == 0) {
-                tvEventQuota.text = "Penuh"
+                binding.tvEventQuota.text = context?.getString(R.string.quota_full)
             } else {
-                tvEventQuota.text = "$remainingQuota orang lagi"
+                val remainingQuotaText = context?.getString(R.string.remaining_quota, remainingQuota)
+                binding.tvEventQuota.text = remainingQuotaText
             }
         }
 
@@ -73,7 +69,7 @@ class UpcomingDetailFragment : Fragment() {
             .load(event.mediaCover)
             .into(binding.ivCover)
 
-        binding.btnRegistration.setOnClickListener() {
+        binding.btnRegistration.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(event.link)
             startActivity(intent)

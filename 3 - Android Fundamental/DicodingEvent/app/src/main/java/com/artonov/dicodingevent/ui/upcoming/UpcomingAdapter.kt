@@ -8,36 +8,38 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.artonov.dicodingevent.R
 import com.artonov.dicodingevent.data.response.ListEventsItem
-import com.artonov.dicodingevent.databinding.FragmentUpcomingBinding
 import com.artonov.dicodingevent.databinding.ItemUpcomingEventBinding
 import com.bumptech.glide.Glide
 
 class UpcomingAdapter : ListAdapter<ListEventsItem, UpcomingAdapter.ViewHolder>(DIFF_CALLBACK) {
 
-    class ViewHolder(val binding: ItemUpcomingEventBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemUpcomingEventBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(eventsItem: ListEventsItem) {
             binding.apply {
                 tvItemName.text = eventsItem.name
                 tvLocation.text = eventsItem.cityName
-                tvQuota.text = "${eventsItem.registrants} / ${eventsItem.quota}"
-            }
+             }
+
+            val context = binding.root.context
+            val registrantsQuotaText = context.getString(R.string.registrants_quota, eventsItem.registrants, eventsItem.quota)
+            binding.tvQuota.text = registrantsQuotaText
 
             Glide.with(binding.root.context)
                 .load(eventsItem.imageLogo)
-                .into(binding.imgItemPhoto);
+                .into(binding.imgItemPhoto)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemUpcomingEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: UpcomingAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
 
-        holder.itemView.setOnClickListener() {
+        holder.itemView.setOnClickListener {
             val eventId = event.id.toString()
             val action = UpcomingFragmentDirections
                 .actionNavigationUpcomingToUpcomingDetailFragment(eventId)

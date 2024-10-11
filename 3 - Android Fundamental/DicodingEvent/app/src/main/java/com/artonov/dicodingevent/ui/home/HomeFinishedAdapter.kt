@@ -14,7 +14,7 @@ import java.util.Locale
 
 class HomeFinishedAdapter : ListAdapter<ListEventsItem, HomeFinishedAdapter.ViewHolder>(DIFF_CALLBACK) {
 
-    class ViewHolder(val binding: ItemFinishedEventBinding) :
+    class ViewHolder(private val binding: ItemFinishedEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(eventsItem: ListEventsItem) {
             binding.apply {
@@ -24,7 +24,7 @@ class HomeFinishedAdapter : ListAdapter<ListEventsItem, HomeFinishedAdapter.View
 
             Glide.with(binding.root.context)
                 .load(eventsItem.imageLogo)
-                .into(binding.imgItemPhoto);
+                .into(binding.imgItemPhoto)
         }
 
         private fun formatEndTime(endTime: String?): String {
@@ -40,13 +40,13 @@ class HomeFinishedAdapter : ListAdapter<ListEventsItem, HomeFinishedAdapter.View
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFinishedAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             ItemFinishedEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: HomeFinishedAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
     }

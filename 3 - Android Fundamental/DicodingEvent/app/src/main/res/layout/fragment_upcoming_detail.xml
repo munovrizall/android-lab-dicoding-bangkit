@@ -9,7 +9,7 @@
         android:id="@+id/btnRegistration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrasi"
+        android:text="@string/registrasi"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
@@ -39,6 +39,7 @@
             android:id="@+id/ivCover"
             android:layout_width="match_parent"
             android:layout_height="220dp"
+            android:contentDescription="@string/contentDescription"
             android:scaleType="centerCrop"
             tools:src="@tools:sample/avatars" />
 
@@ -48,95 +49,59 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp" android:textAppearance="?attr/textAppearanceHeadline6" />
+                android:layout_marginTop="16dp"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_event_admin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:paddingBottom="8dp">
+                android:paddingBottom="8dp"
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:drawableStartCompat="@drawable/ic_admin" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_admin" />
 
-                <TextView
-                    android:id="@+id/tv_event_admin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="8dp"
-                    android:textAppearance="?attr/textAppearanceBody2" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_event_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:paddingBottom="8dp">
+                android:paddingBottom="8dp"
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:drawableStartCompat="@drawable/ic_calendar_month" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_calendar_month" />
-
-                <TextView
-                    android:id="@+id/tv_event_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="8dp"
-                    android:textAppearance="?attr/textAppearanceBody2" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_event_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:paddingBottom="8dp">
+                android:paddingBottom="8dp"
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:drawableStartCompat="@drawable/ic_location" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_location" />
 
-                <TextView
-                    android:id="@+id/tv_event_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="8dp"  android:textAppearance="?attr/textAppearanceBody2" />
-            </LinearLayout>
-
-            <!-- Event Quota -->
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_event_quota"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:paddingBottom="8dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_people" />
-
-                <TextView
-                    android:id="@+id/tv_event_quota"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="8dp" android:textAppearance="?attr/textAppearanceBody2" />
-            </LinearLayout>
+                android:paddingBottom="8dp"
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:drawableStartCompat="@drawable/ic_people" />
 
             <TextView
                 android:id="@+id/tv_event_description"
@@ -147,9 +112,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:textAppearance="?attr/textAppearanceBody2" />
-
-
-
         </LinearLayout>
     </ScrollView>
 

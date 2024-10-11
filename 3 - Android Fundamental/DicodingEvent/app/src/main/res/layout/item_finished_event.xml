@@ -47,7 +47,7 @@
             android:id="@+id/tv_end_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Online"
+            android:text="@string/online"
             android:textSize="14sp"
             android:layout_marginBottom="8dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
