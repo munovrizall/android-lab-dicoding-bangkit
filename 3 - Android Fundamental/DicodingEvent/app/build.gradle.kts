@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id ("androidx.navigation.safeargs")
 }
 
 android {
@@ -58,4 +59,5 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation (libs.androidx.activity.ktx)
     implementation (libs.androidx.fragment.ktx)
+
 }

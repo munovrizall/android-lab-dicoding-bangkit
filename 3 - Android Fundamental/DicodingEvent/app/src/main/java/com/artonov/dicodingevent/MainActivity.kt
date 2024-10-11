@@ -22,14 +22,22 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_upcoming, R.id.navigation_finished
+                R.id.navigation_home, R.id.navigation_upcoming, R.id.navigation_finished, R.id.upcomingDetailFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.navigation_home -> supportActionBar?.title = "Home"
+                R.id.navigation_upcoming -> supportActionBar?.title = "Upcoming Events"
+                R.id.navigation_finished -> supportActionBar?.title = "Finished Events"
+                R.id.upcomingDetailFragment -> supportActionBar?.title = "Detail Event"
+                else -> supportActionBar?.title = "App Title"
+            }
+        }
     }
 }

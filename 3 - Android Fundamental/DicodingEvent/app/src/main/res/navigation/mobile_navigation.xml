@@ -15,11 +15,23 @@
         android:id="@+id/navigation_upcoming"
         android:name="com.artonov.dicodingevent.ui.upcoming.UpcomingFragment"
         android:label="@string/upcoming"
-        tools:layout="@layout/fragment_upcoming" />
+        tools:layout="@layout/fragment_upcoming" >
+        <action
+            android:id="@+id/action_navigation_upcoming_to_upcomingDetailFragment"
+            app:destination="@id/upcomingDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_finished"
         android:name="com.artonov.dicodingevent.ui.finished.FinishedFragment"
         android:label="@string/finished"
         tools:layout="@layout/fragment_finished" />
+    <fragment
+        android:id="@+id/upcomingDetailFragment"
+        android:name="com.artonov.dicodingevent.ui.upcoming.UpcomingDetailFragment"
+        android:label="UpcomingDetailFragment" >
+        <argument
+            android:name="eventId"
+            app:argType="string" />
+    </fragment>
 </navigation>

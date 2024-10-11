@@ -2,6 +2,7 @@ package com.artonov.dicodingevent.ui.upcoming
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +36,14 @@ class UpcomingAdapter : ListAdapter<ListEventsItem, UpcomingAdapter.ViewHolder>(
     override fun onBindViewHolder(holder: UpcomingAdapter.ViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
+
+        holder.itemView.setOnClickListener() {
+            val eventId = event.id.toString()
+            val action = UpcomingFragmentDirections
+                .actionNavigationUpcomingToUpcomingDetailFragment(eventId)
+
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     companion object {
