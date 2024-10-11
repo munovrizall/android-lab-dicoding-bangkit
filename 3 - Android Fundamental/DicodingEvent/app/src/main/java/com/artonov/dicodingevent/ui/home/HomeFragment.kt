@@ -4,35 +4,68 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.artonov.dicodingevent.data.response.ListEventsItem
 import com.artonov.dicodingevent.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private val homeViewModel by viewModels<HomeViewModel>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        homeViewModel.listEvent.observe(viewLifecycleOwner) { upcomingEvents ->
+            setCarouselData(upcomingEvents)
         }
-        return root
+
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvCarousel.layoutManager = layoutManager
+
+        homeViewModel.finishedEvent.observe(viewLifecycleOwner) { finishedEvents ->
+            setFinishedEventData(finishedEvents)
+        }
+
+        val finishedLayoutManager = LinearLayoutManager(requireContext())
+        binding.rvFinished.layoutManager = finishedLayoutManager
+
+        homeViewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
+    }
+
+    private fun setCarouselData(eventsItem: List<ListEventsItem>) {
+        val adapter = HomeCarouselAdapter()
+        adapter.submitList(eventsItem)
+        binding.rvCarousel.adapter = adapter
+    }
+
+    private fun setFinishedEventData(eventsItem: List<ListEventsItem>) {
+        val adapter = HomeFinishedAdapter()
+        adapter.submitList(eventsItem)
+        binding.rvFinished.adapter = adapter
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.INVISIBLE
+        }
     }
 
     override fun onDestroyView() {

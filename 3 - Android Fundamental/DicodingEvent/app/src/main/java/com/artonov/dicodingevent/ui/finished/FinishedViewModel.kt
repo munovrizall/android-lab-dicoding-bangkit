@@ -25,10 +25,10 @@ class FinishedViewModel : ViewModel() {
     }
 
     init {
-        showUpcomingEvents()
+        showFinishedEvents()
     }
 
-    private fun showUpcomingEvents() {
+    private fun showFinishedEvents() {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getEvents(FINISHED_ID)
         client.enqueue(object : Callback<EventResponse> {

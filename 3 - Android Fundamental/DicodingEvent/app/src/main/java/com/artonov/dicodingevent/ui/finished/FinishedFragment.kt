@@ -16,9 +16,6 @@ import com.artonov.dicodingevent.ui.finished.FinishedViewModel
 class FinishedFragment : Fragment() {
 
     private var _binding: FragmentFinishedBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     private val finishedViewModel by viewModels<FinishedViewModel>()
 
