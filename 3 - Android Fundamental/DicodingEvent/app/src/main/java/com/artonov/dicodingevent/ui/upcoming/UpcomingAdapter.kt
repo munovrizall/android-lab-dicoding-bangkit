@@ -23,7 +23,7 @@ class UpcomingAdapter : ListAdapter<ListEventsItem, UpcomingAdapter.ViewHolder>(
             }
 
             Glide.with(binding.root.context)
-                .load(eventsItem.imageLogo)   // Gambar saat terjadi error
+                .load(eventsItem.imageLogo)
                 .into(binding.imgItemPhoto);
         }
     }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -14,7 +15,6 @@ import com.artonov.dicodingevent.databinding.FragmentFinishedBinding
 import com.artonov.dicodingevent.ui.finished.FinishedViewModel
 
 class FinishedFragment : Fragment() {
-
     private var _binding: FragmentFinishedBinding? = null
     private val binding get() = _binding!!
     private val finishedViewModel by viewModels<FinishedViewModel>()
@@ -25,7 +25,7 @@ class FinishedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFinishedBinding.inflate(inflater, container, false)
-       return binding.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,6 +40,12 @@ class FinishedFragment : Fragment() {
 
         finishedViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
+        }
+
+        finishedViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            if (errorMessage != null) {
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

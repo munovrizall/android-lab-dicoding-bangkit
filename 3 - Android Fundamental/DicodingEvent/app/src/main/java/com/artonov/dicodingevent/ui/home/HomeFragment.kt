@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +34,8 @@ class HomeFragment : Fragment() {
             setCarouselData(upcomingEvents)
         }
 
-        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvCarousel.layoutManager = layoutManager
 
         homeViewModel.finishedEvent.observe(viewLifecycleOwner) { finishedEvents ->
@@ -45,6 +47,12 @@ class HomeFragment : Fragment() {
 
         homeViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
+        }
+
+        homeViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            if (errorMessage != null) {
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
