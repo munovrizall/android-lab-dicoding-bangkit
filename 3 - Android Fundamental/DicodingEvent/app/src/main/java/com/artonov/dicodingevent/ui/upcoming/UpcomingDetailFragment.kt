@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -54,7 +55,6 @@ class UpcomingDetailFragment : Fragment() {
         binding.apply {
             tvEventName.text = event.name
             tvEventAdmin.text = event.ownerName
-            tvEventDescription.text = event.description
             tvEventLocation.text = event.cityName
             tvEventDate.text = formatTime(event.beginTime)
             if (remainingQuota == 0) {
@@ -64,6 +64,11 @@ class UpcomingDetailFragment : Fragment() {
                 binding.tvEventQuota.text = remainingQuotaText
             }
         }
+
+        binding.tvEventDescription.text = HtmlCompat.fromHtml(
+            event.description.toString(),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
 
         Glide.with(this)
             .load(event.mediaCover)
