@@ -2,6 +2,7 @@ package com.artonov.dicodingevent.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -49,6 +50,14 @@ class HomeFinishedAdapter : ListAdapter<ListEventsItem, HomeFinishedAdapter.View
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
+
+        holder.itemView.setOnClickListener {
+            val eventId = event.id.toString()
+            val action = HomeFragmentDirections
+                .actionNavigationHomeToDetailFragment(eventId)
+
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     override fun submitList(list: List<ListEventsItem>?) {

@@ -1,4 +1,4 @@
-package com.artonov.dicodingevent.ui.upcoming
+package com.artonov.dicodingevent.ui.detail
 
 import android.content.Intent
 import android.net.Uri
@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class UpcomingDetailFragment : Fragment() {
+class DetailFragment : Fragment() {
     private var _binding: FragmentUpcomingDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -33,12 +33,12 @@ class UpcomingDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val args: UpcomingDetailFragmentArgs by navArgs()
+        val args: DetailFragmentArgs by navArgs()
         val eventId = args.eventId
 
-        val factory = UpcomingDetailViewModelFactory(eventId)
+        val factory = DetailViewModelFactory(eventId)
         val upcomingDetailViewModel =
-            ViewModelProvider(this, factory)[UpcomingDetailViewModel::class.java]
+            ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         upcomingDetailViewModel.event.observe(viewLifecycleOwner) { eventData ->
             setEventData(eventData)
@@ -92,7 +92,7 @@ class UpcomingDetailFragment : Fragment() {
     private fun formatTime(time: String?): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val outputFormat = SimpleDateFormat("EEEE, dd/MM/yyyy", Locale("id", "ID"))
-        val date: Date? = inputFormat.parse(time)
+        val date: Date? = inputFormat.parse(time.toString())
 
         return if (date != null) {
             outputFormat.format(date)

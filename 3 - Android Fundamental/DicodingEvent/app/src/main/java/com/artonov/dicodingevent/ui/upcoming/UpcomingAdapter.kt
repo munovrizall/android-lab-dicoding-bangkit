@@ -42,7 +42,7 @@ class UpcomingAdapter : ListAdapter<ListEventsItem, UpcomingAdapter.ViewHolder>(
         holder.itemView.setOnClickListener {
             val eventId = event.id.toString()
             val action = UpcomingFragmentDirections
-                .actionNavigationUpcomingToUpcomingDetailFragment(eventId)
+                .actionNavigationUpcomingToDetailFragment(eventId)
 
             holder.itemView.findNavController().navigate(action)
         }

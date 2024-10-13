@@ -1,4 +1,4 @@
-package com.artonov.dicodingevent.ui.upcoming
+package com.artonov.dicodingevent.ui.detail
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -11,7 +11,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UpcomingDetailViewModel(eventId: String) : ViewModel() {
+class DetailViewModel(eventId: String) : ViewModel() {
 
     private val _event = MutableLiveData<Event>()
     val event: LiveData<Event> = _event

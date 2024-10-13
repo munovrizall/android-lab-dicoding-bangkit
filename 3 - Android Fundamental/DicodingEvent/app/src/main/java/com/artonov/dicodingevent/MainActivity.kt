@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_upcoming, R.id.navigation_finished, R.id.upcomingDetailFragment
+                R.id.navigation_home, R.id.navigation_upcoming, R.id.navigation_finished, R.id.detailFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home -> supportActionBar?.title = "Home"
                 R.id.navigation_upcoming -> supportActionBar?.title = "Upcoming Events"
                 R.id.navigation_finished -> supportActionBar?.title = "Finished Events"
-                R.id.upcomingDetailFragment -> supportActionBar?.title = "Detail Event"
+                R.id.detailFragment -> supportActionBar?.title = "Detail Event"
                 else -> supportActionBar?.title = "App Title"
             }
         }

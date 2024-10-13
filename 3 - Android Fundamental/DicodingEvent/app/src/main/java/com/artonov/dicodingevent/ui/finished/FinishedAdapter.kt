@@ -2,6 +2,7 @@ package com.artonov.dicodingevent.ui.finished
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +20,7 @@ class FinishedAdapter : ListAdapter<ListEventsItem, FinishedAdapter.ViewHolder>(
         fun bind(eventsItem: ListEventsItem) {
             binding.apply {
                 tvItemName.text = eventsItem.name
-                tvEndTime.text = formatEndTime(eventsItem.endTime)
+                tvEndTime.text = eventsItem.endTime?.let { formatEndTime(it) }
             }
 
             Glide.with(binding.root.context)
@@ -27,7 +28,7 @@ class FinishedAdapter : ListAdapter<ListEventsItem, FinishedAdapter.ViewHolder>(
                 .into(binding.imgItemPhoto)
         }
 
-        private fun formatEndTime(endTime: String?): String {
+        private fun formatEndTime(endTime: String): String {
             val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
             val outputFormat = SimpleDateFormat("EEEE, dd/MM/yyyy",  Locale("id", "ID"))
             val date: Date? = inputFormat.parse(endTime)
@@ -49,6 +50,14 @@ class FinishedAdapter : ListAdapter<ListEventsItem, FinishedAdapter.ViewHolder>(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
+
+        holder.itemView.setOnClickListener {
+            val eventId = event.id.toString()
+            val action = FinishedFragmentDirections
+                .actionNavigationFinishedToDetailFragment(eventId)
+
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     companion object {
