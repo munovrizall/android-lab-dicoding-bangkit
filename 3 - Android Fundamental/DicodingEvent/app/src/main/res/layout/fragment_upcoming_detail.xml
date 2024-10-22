@@ -7,17 +7,29 @@
 
     <Button
         android:id="@+id/btnRegistration"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/registrasi"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/registrasi"
+        app:layout_constraintBottom_toBottomOf="@+id/fab_favorite"
+        app:layout_constraintEnd_toStartOf="@+id/fab_favorite"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fab_favorite" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:rippleColor="@color/white"
+        android:backgroundTint="@color/darkBlue"
+        android:contentDescription="@string/favorite_button"
+        android:src="@drawable/ic_favorite_unactive"
+        app:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -35,32 +47,32 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/ivCover"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:contentDescription="@string/contentDescription"
-            android:scaleType="centerCrop"
-            tools:src="@tools:sample/avatars" />
+            <ImageView
+                android:id="@+id/ivCover"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:contentDescription="@string/event_image_cover"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/tv_event_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:textAppearance="?attr/textAppearanceHeadline6" />
 
             <TextView
                 android:id="@+id/tv_event_admin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:paddingBottom="8dp"
                 android:textAppearance="?attr/textAppearanceBody2"
                 app:drawableStartCompat="@drawable/ic_admin" />
@@ -70,10 +82,10 @@
                 android:id="@+id/tv_event_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
                 android:paddingBottom="8dp"
                 android:textAppearance="?attr/textAppearanceBody2"
                 app:drawableStartCompat="@drawable/ic_calendar_month" />
@@ -82,10 +94,10 @@
                 android:id="@+id/tv_event_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
                 android:paddingBottom="8dp"
                 android:textAppearance="?attr/textAppearanceBody2"
                 app:drawableStartCompat="@drawable/ic_location" />
@@ -95,10 +107,10 @@
                 android:id="@+id/tv_event_quota"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
                 android:paddingBottom="8dp"
                 android:textAppearance="?attr/textAppearanceBody2"
                 app:drawableStartCompat="@drawable/ic_people" />
@@ -107,10 +119,10 @@
                 android:id="@+id/tv_event_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:textAppearance="?attr/textAppearanceBody2" />
         </LinearLayout>
     </ScrollView>
@@ -120,9 +132,9 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

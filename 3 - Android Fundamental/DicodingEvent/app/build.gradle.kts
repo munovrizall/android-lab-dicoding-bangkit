@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.devtools.ksp")
     id ("androidx.navigation.safeargs")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -60,4 +62,6 @@ dependencies {
     implementation (libs.androidx.activity.ktx)
     implementation (libs.androidx.fragment.ktx)
 
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.room.compiler)
 }

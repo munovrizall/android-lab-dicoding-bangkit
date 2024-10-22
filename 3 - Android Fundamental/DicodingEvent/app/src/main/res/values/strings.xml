@@ -13,4 +13,6 @@
     <string name="contentDescription">TODO</string>
     <string name="registrasi">Registrasi</string>
     <string name="cari_event">Cari Event</string>
+    <string name="event_image_cover">Event image cover</string>
+    <string name="favorite_button">favorite button</string>
 </resources>
