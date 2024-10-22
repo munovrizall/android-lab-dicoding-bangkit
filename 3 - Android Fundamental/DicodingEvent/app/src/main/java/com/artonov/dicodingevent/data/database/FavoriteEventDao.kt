@@ -1,6 +1,6 @@
 package com.artonov.dicodingevent.data.database
 
-import FavoriteEvent
+import com.artonov.dicodingevent.data.database.FavoriteEvent
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete

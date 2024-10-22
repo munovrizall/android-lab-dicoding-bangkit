@@ -1,6 +1,6 @@
 package com.artonov.dicodingevent.data.repository
 
-import FavoriteEvent
+import com.artonov.dicodingevent.data.database.FavoriteEvent
 import android.app.Application
 import androidx.lifecycle.LiveData
 import com.artonov.dicodingevent.data.database.FavoriteEventDao

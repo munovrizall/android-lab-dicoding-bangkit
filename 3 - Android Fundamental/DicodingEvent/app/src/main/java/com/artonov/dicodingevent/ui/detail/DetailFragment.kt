@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.artonov.dicodingevent.R
+import com.artonov.dicodingevent.data.database.FavoriteEvent
 import com.artonov.dicodingevent.data.response.Event
 import com.artonov.dicodingevent.databinding.FragmentUpcomingDetailBinding
 import com.bumptech.glide.Glide
@@ -21,6 +22,8 @@ import java.util.Locale
 class DetailFragment : Fragment() {
     private var _binding: FragmentUpcomingDetailBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var detailViewModel: DetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,17 +39,35 @@ class DetailFragment : Fragment() {
         val args: DetailFragmentArgs by navArgs()
         val eventId = args.eventId
 
-        val factory = DetailViewModelFactory(eventId)
-        val upcomingDetailViewModel =
+        val factory = DetailViewModelFactory(eventId, requireActivity().application)
+        detailViewModel =
             ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
-        upcomingDetailViewModel.event.observe(viewLifecycleOwner) { eventData ->
+        detailViewModel.event.observe(viewLifecycleOwner) { eventData ->
             setEventData(eventData)
+            binding.fabFavorite.setOnClickListener{ addFavorite(eventData) }
         }
 
-        upcomingDetailViewModel.isLoading.observe(viewLifecycleOwner) {
+        detailViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
+
+    }
+
+    private fun addFavorite(event: Event) {
+        val favoriteEvent = FavoriteEvent(
+            id = event.id.toString(),
+            name = event.name.toString(),
+            description = event.description.toString(),
+            link = event.link.toString(),
+            ownerName = event.ownerName.toString(),
+            cityName = event.cityName.toString(),
+            beginTime = formatTime(event.beginTime),
+            imageLogo = event.imageLogo.toString(),
+            mediaCover = event.mediaCover.toString(),
+        )
+
+        detailViewModel.insert(favoriteEvent)
     }
 
     private fun setEventData(event: Event) {

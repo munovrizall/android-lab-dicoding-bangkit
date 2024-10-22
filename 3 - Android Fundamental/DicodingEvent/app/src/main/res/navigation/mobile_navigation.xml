@@ -34,6 +34,11 @@
             app:destination="@id/detailFragment" />
     </fragment>
     <fragment
+        android:id="@+id/navigation_favorite"
+        android:name="com.artonov.dicodingevent.ui.favorite.FavoriteFragment"
+        android:label="favoriteFragment"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
         android:id="@+id/detailFragment"
         android:name="com.artonov.dicodingevent.ui.detail.DetailFragment"
         android:label="detailFragment" >

@@ -1,9 +1,12 @@
 package com.artonov.dicodingevent.ui.detail
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.artonov.dicodingevent.data.database.FavoriteEvent
+import com.artonov.dicodingevent.data.repository.FavoriteEventRepository
 import com.artonov.dicodingevent.data.response.DetailEventResponse
 import com.artonov.dicodingevent.data.response.Event
 import com.artonov.dicodingevent.data.retrofit.ApiConfig
@@ -11,7 +14,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailViewModel(eventId: String) : ViewModel() {
+class DetailViewModel(eventId: String, application: Application) : ViewModel() {
+    private val mFavoriteEventRepository: FavoriteEventRepository = FavoriteEventRepository(application)
 
     private val _event = MutableLiveData<Event>()
     val event: LiveData<Event> = _event
@@ -53,4 +57,9 @@ class DetailViewModel(eventId: String) : ViewModel() {
 
         })
     }
+
+    fun insert(favoriteEvent: FavoriteEvent) {
+        mFavoriteEventRepository.insert(favoriteEvent)
+    }
+
 }

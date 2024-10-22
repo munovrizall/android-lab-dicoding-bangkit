@@ -1,3 +1,5 @@
+package com.artonov.dicodingevent.data.database
+
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -14,9 +16,6 @@ data class FavoriteEvent(
     @ColumnInfo(name = "name")
     var name: String = "",
 
-    @ColumnInfo(name = "summary")
-    var summary: String = "",
-
     @ColumnInfo(name = "description")
     var description: String = "",
 
@@ -29,20 +28,8 @@ data class FavoriteEvent(
     @ColumnInfo(name = "city_name")
     var cityName: String = "",
 
-    @ColumnInfo(name = "registrants")
-    var registrants: Int? = null,
-
-    @ColumnInfo(name = "quota")
-    var quota: Int? = null,
-
     @ColumnInfo(name = "begin_time")
     var beginTime: String = "",
-
-    @ColumnInfo(name = "end_time")
-    var endTime: String = "",
-
-    @ColumnInfo(name = "category")
-    var category: String = "",
 
     @ColumnInfo(name = "media_cover")
     var mediaCover: String? = null,

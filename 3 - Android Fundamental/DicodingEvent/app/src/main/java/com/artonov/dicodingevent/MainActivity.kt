@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home -> supportActionBar?.title = "Home"
                 R.id.navigation_upcoming -> supportActionBar?.title = "Upcoming Events"
                 R.id.navigation_finished -> supportActionBar?.title = "Finished Events"
+                R.id.navigation_favorite -> supportActionBar?.title = "Favorite Events"
                 R.id.detailFragment -> supportActionBar?.title = "Detail Event"
                 else -> supportActionBar?.title = "App Title"
             }
