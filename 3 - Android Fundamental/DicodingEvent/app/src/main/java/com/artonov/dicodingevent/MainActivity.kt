@@ -36,9 +36,17 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_upcoming -> supportActionBar?.title = "Upcoming Events"
                 R.id.navigation_finished -> supportActionBar?.title = "Finished Events"
                 R.id.navigation_favorite -> supportActionBar?.title = "Favorite Events"
-                R.id.detailFragment -> supportActionBar?.title = "Detail Event"
+                R.id.detailFragment -> {
+                    supportActionBar?.title = "Detail Event"
+                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                }
                 else -> supportActionBar?.title = "App Title"
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

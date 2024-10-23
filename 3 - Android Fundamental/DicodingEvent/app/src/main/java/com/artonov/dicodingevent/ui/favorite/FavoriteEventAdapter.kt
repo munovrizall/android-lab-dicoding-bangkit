@@ -2,6 +2,7 @@ package com.artonov.dicodingevent.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +37,15 @@ class FavoriteEventAdapter : ListAdapter<FavoriteEvent, FavoriteEventAdapter.Vie
 
 
     override fun onBindViewHolder(holder: FavoriteEventAdapter.ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val event = getItem(position)
+        holder.bind(event)
+
+        holder.itemView.setOnClickListener {
+            val eventId = event.id.toString()
+            val action = FavoriteFragmentDirections
+                .actionNavigationFavoriteToDetailFragment(eventId)
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     companion object {
