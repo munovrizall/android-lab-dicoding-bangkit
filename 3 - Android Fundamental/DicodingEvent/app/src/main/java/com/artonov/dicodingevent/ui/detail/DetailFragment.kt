@@ -45,13 +45,28 @@ class DetailFragment : Fragment() {
 
         detailViewModel.event.observe(viewLifecycleOwner) { eventData ->
             setEventData(eventData)
-            binding.fabFavorite.setOnClickListener{ addFavorite(eventData) }
+//            binding.fabFavorite.setOnClickListener { addFavorite(eventData) }
         }
 
         detailViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
 
+        detailViewModel.favoriteEvent.observe(viewLifecycleOwner) { favoriteEvent ->
+            if (favoriteEvent != null) {
+                binding.fabFavorite.setImageResource(R.drawable.ic_favorite_active)
+                binding.fabFavorite.setOnClickListener {
+                    detailViewModel.deleteFavorite(favoriteEvent)
+                }
+            } else {
+                binding.fabFavorite.setImageResource(R.drawable.ic_favorite_unactive)
+                binding.fabFavorite.setOnClickListener {
+                    detailViewModel.event.value?.let { event ->
+                        addFavorite(event)
+                    }
+                }
+            }
+        }
     }
 
     private fun addFavorite(event: Event) {
@@ -81,7 +96,8 @@ class DetailFragment : Fragment() {
             if (remainingQuota == 0) {
                 binding.tvEventQuota.text = context?.getString(R.string.quota_full)
             } else {
-                val remainingQuotaText = context?.getString(R.string.remaining_quota, remainingQuota)
+                val remainingQuotaText =
+                    context?.getString(R.string.remaining_quota, remainingQuota)
                 binding.tvEventQuota.text = remainingQuotaText
             }
         }
@@ -105,8 +121,12 @@ class DetailFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
+            binding.btnRegistration.visibility = View.INVISIBLE
+            binding.fabFavorite.visibility = View.INVISIBLE
         } else {
             binding.progressBar.visibility = View.INVISIBLE
+            binding.btnRegistration.visibility = View.VISIBLE
+            binding.fabFavorite.visibility = View.VISIBLE
         }
     }
 

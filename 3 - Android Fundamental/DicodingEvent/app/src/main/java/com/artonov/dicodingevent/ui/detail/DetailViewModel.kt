@@ -20,6 +20,9 @@ class DetailViewModel(eventId: String, application: Application) : ViewModel() {
     private val _event = MutableLiveData<Event>()
     val event: LiveData<Event> = _event
 
+    private val _favoriteEvent = mFavoriteEventRepository.getFavoriteEventById(eventId)
+    val favoriteEvent: LiveData<FavoriteEvent> = _favoriteEvent
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -58,8 +61,12 @@ class DetailViewModel(eventId: String, application: Application) : ViewModel() {
         })
     }
 
+
     fun insert(favoriteEvent: FavoriteEvent) {
         mFavoriteEventRepository.insert(favoriteEvent)
     }
 
+    fun deleteFavorite(favoriteEvent: FavoriteEvent) {
+        mFavoriteEventRepository.delete(favoriteEvent)
+    }
 }

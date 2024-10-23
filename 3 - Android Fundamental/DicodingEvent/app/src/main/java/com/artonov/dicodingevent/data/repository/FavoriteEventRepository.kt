@@ -24,6 +24,10 @@ class FavoriteEventRepository(application: Application) {
         executorService.execute { mFavoriteEventDao.insert(favoriteEvent) }
     }
 
+    fun getFavoriteEventById(id: String): LiveData<FavoriteEvent> {
+        return mFavoriteEventDao.getFavoriteEventById(id)
+    }
+
     fun delete(favoriteEvent: FavoriteEvent) {
         executorService.execute { mFavoriteEventDao.delete(favoriteEvent) }
     }

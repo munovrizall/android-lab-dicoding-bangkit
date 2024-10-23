@@ -13,6 +13,9 @@ interface FavoriteEventDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(favoriteEvent: FavoriteEvent)
 
+    @Query("SELECT * FROM favorite_event WHERE id = :id")
+    fun getFavoriteEventById(id: String): LiveData<FavoriteEvent>
+
     @Delete
     fun delete(favoriteEvent: FavoriteEvent)
 
