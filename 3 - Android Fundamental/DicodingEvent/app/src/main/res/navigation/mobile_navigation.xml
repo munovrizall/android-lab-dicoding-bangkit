@@ -50,4 +50,9 @@
             android:name="eventId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.artonov.dicodingevent.ui.setting.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
 </navigation>
