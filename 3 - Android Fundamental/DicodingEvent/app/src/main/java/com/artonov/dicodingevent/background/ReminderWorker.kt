@@ -19,6 +19,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ReminderWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
 
@@ -43,19 +46,21 @@ class ReminderWorker(context: Context, workerParams: WorkerParameters) : Worker(
                 if (response.isSuccessful) {
                     val events = response.body()?.listEvents
                     val eventName = events?.firstOrNull()?.name ?: "Tidak ada event"
+                    val eventTime = events?.firstOrNull()?.beginTime
+                    val formattedEventTime = formatDate(eventTime);
 
                     latestEvent.postValue(eventName)
-                    sendNotification(eventName)
+                    sendNotification(eventName, formattedEventTime)
                 }
             }
 
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
-                sendNotification("Gagal mendapatkan event terbaru")
+                sendNotification("Gagal mendapatkan event terbaru", "")
             }
         })
     }
 
-    private fun sendNotification(eventName: String) {
+    private fun sendNotification(eventName: String, eventTime: String?) {
         // Membuat channel notifikasi
         createNotificationChannel()
 
@@ -68,8 +73,8 @@ class ReminderWorker(context: Context, workerParams: WorkerParameters) : Worker(
         val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notifications)
-            .setContentTitle("Event Terbaru")
-            .setContentText(eventName)
+            .setContentTitle("Daftar $eventName")
+            .setContentText("Event akan dimulai pada $eventTime")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
@@ -96,6 +101,18 @@ class ReminderWorker(context: Context, workerParams: WorkerParameters) : Worker(
                 applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
+    }
+
+    fun formatDate(apiDate: String?): String {
+        val apiDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+
+        val date: Date? = apiDateFormat.parse(apiDate)
+
+        val targetFormat = SimpleDateFormat("EEEE, dd/MMMM/yyyy", Locale("id", "ID"))
+
+        return date?.let {
+            targetFormat.format(it)
+        } ?: "Tanggal tidak valid"
     }
 
     companion object {
