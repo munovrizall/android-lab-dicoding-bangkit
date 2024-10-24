@@ -22,4 +22,6 @@
     <string name="pengaturan">Pengaturan</string>
     <string name="enable_dark_mode">Enable dark mode</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="enable_notifications">Enable Notifications</string>
 </resources>

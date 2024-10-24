@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
+import androidx.work.WorkManager
 import com.artonov.dicodingevent.R
+import com.artonov.dicodingevent.background.ReminderScheduler
 import com.artonov.dicodingevent.data.preferences.DarkModePreferences
+import com.artonov.dicodingevent.data.preferences.ReminderPreferences
 import com.artonov.dicodingevent.data.preferences.dataStore
 import com.artonov.dicodingevent.databinding.FragmentSettingBinding
 import com.artonov.dicodingevent.databinding.FragmentUpcomingDetailBinding
@@ -20,6 +23,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial
 class SettingFragment : Fragment() {
     private var _binding: FragmentSettingBinding? = null
     private val binding get() = _binding!!
+    private lateinit var reminderPreferences: ReminderPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,5 +51,24 @@ class SettingFragment : Fragment() {
         binding.switchDarkMode.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
             settingViewModel.saveThemeSetting(isChecked)
         }
+
+        reminderPreferences = ReminderPreferences(requireContext())
+        val isDailyReminderEnabled = reminderPreferences.getDailyReminder()
+        binding.switchDailyReminder.isChecked = isDailyReminderEnabled
+
+        binding.switchDailyReminder.setOnCheckedChangeListener { _, isChecked ->
+            reminderPreferences.setDailyReminder(isChecked)
+
+            if (isChecked) {
+                ReminderScheduler.scheduleDailyReminder(requireContext())
+            } else {
+                WorkManager.getInstance(requireContext()).cancelUniqueWork("DailyReminderWork")
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
