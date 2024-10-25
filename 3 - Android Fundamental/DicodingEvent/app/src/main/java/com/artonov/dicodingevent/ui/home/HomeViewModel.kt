@@ -22,6 +22,9 @@ class HomeViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _isRvLoading = MutableLiveData<Boolean>()
+    val isRvLoading: LiveData<Boolean> = _isRvLoading
+
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
@@ -65,12 +68,12 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun showFinishedEvents() {
-        _isLoading.value = true
+        _isRvLoading.value = true
         _errorMessage.value = null
         val client = ApiConfig.getApiService().getEvents(FINISHED_ID)
         client.enqueue(object : Callback<EventResponse> {
             override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
-                _isLoading.value = false
+                _isRvLoading.value = false
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
@@ -82,7 +85,7 @@ class HomeViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
-                _isLoading.value = false
+                _isRvLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })

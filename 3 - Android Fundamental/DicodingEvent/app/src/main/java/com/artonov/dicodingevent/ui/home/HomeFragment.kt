@@ -49,6 +49,10 @@ class HomeFragment : Fragment() {
             showLoading(it)
         }
 
+        homeViewModel.isRvLoading.observe(viewLifecycleOwner) {
+            showRvLoading(it)
+        }
+
         homeViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
             if (errorMessage != null) {
                 Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
@@ -73,6 +77,14 @@ class HomeFragment : Fragment() {
             binding.progressBar.visibility = View.VISIBLE
         } else {
             binding.progressBar.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun showRvLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBarRv.visibility = View.VISIBLE
+        } else {
+            binding.progressBarRv.visibility = View.INVISIBLE
         }
     }
 
