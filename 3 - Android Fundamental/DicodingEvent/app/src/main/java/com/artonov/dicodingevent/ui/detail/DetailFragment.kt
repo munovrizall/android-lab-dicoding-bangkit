@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,10 +15,8 @@ import com.artonov.dicodingevent.R
 import com.artonov.dicodingevent.data.database.FavoriteEvent
 import com.artonov.dicodingevent.data.response.Event
 import com.artonov.dicodingevent.databinding.FragmentUpcomingDetailBinding
+import com.artonov.dicodingevent.util.FormatTime
 import com.bumptech.glide.Glide
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class DetailFragment : Fragment() {
     private var _binding: FragmentUpcomingDetailBinding? = null
@@ -45,7 +44,12 @@ class DetailFragment : Fragment() {
 
         detailViewModel.event.observe(viewLifecycleOwner) { eventData ->
             setEventData(eventData)
-//            binding.fabFavorite.setOnClickListener { addFavorite(eventData) }
+        }
+
+        detailViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            if (errorMessage != null) {
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            }
         }
 
         detailViewModel.isLoading.observe(viewLifecycleOwner) {
@@ -77,7 +81,7 @@ class DetailFragment : Fragment() {
             link = event.link.toString(),
             ownerName = event.ownerName.toString(),
             cityName = event.cityName.toString(),
-            beginTime = formatTime(event.beginTime),
+            beginTime = FormatTime.formatDateOnly(event.beginTime),
             imageLogo = event.imageLogo.toString(),
             mediaCover = event.mediaCover.toString(),
         )
@@ -87,12 +91,12 @@ class DetailFragment : Fragment() {
 
     private fun setEventData(event: Event) {
         val remainingQuota = event.quota?.minus(event.registrants!!)
-
+        val eventTime ="${FormatTime.getHour(event.beginTime)} - ${FormatTime.formatWithHour(event.endTime)}"
         binding.apply {
             tvEventName.text = event.name
             tvEventAdmin.text = event.ownerName
             tvEventLocation.text = event.cityName
-            tvEventDate.text = formatTime(event.beginTime)
+            tvEventDate.text = eventTime
             if (remainingQuota == 0) {
                 binding.tvEventQuota.text = context?.getString(R.string.quota_full)
             } else {
@@ -119,28 +123,9 @@ class DetailFragment : Fragment() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-            binding.btnRegistration.visibility = View.INVISIBLE
-            binding.fabFavorite.visibility = View.INVISIBLE
-        } else {
-            binding.progressBar.visibility = View.INVISIBLE
-            binding.btnRegistration.visibility = View.VISIBLE
-            binding.fabFavorite.visibility = View.VISIBLE
-        }
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
     }
 
-    private fun formatTime(time: String?): String {
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-        val outputFormat = SimpleDateFormat("EEEE, dd/MM/yyyy", Locale("id", "ID"))
-        val date: Date? = inputFormat.parse(time.toString())
-
-        return if (date != null) {
-            outputFormat.format(date)
-        } else {
-            ""
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

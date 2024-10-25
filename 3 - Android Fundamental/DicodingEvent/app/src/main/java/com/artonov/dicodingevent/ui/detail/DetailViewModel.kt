@@ -15,7 +15,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class DetailViewModel(eventId: String, application: Application) : ViewModel() {
-    private val mFavoriteEventRepository: FavoriteEventRepository = FavoriteEventRepository(application)
+    private val mFavoriteEventRepository: FavoriteEventRepository =
+        FavoriteEventRepository(application)
 
     private val _event = MutableLiveData<Event>()
     val event: LiveData<Event> = _event
@@ -25,6 +26,9 @@ class DetailViewModel(eventId: String, application: Application) : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
 
     companion object {
         private const val TAG = "UpcomingDetailViewModel"
@@ -36,6 +40,7 @@ class DetailViewModel(eventId: String, application: Application) : ViewModel() {
 
     private fun findEvent(eventId: String) {
         _isLoading.value = true
+        _errorMessage.value = null
         val client = ApiConfig.getApiService().getDetailEvent(eventId)
         client.enqueue(object : Callback<DetailEventResponse> {
             override fun onResponse(
@@ -47,14 +52,17 @@ class DetailViewModel(eventId: String, application: Application) : ViewModel() {
                     val responseBody = response.body()
                     if (responseBody != null) {
                         _event.value = responseBody.event
+                    } else {
+                        _errorMessage.value = "Data tidak ditemukan"
                     }
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    _errorMessage.value = "Gagal memuat data: ${response.message()}"
                 }
             }
 
             override fun onFailure(call: Call<DetailEventResponse>, t: Throwable) {
                 _isLoading.value = false
+                _errorMessage.value = "Gagal memuat data: ${t.message}"
                 Log.e(TAG, "onFailure: ${t.message}")
             }
 

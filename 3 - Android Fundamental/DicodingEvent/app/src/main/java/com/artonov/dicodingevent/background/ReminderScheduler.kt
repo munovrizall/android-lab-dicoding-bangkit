@@ -13,12 +13,12 @@ object ReminderScheduler {
 
     fun scheduleDailyReminder(context: Context) {
         val dailyReminderRequest: PeriodicWorkRequest = PeriodicWorkRequestBuilder<ReminderWorker>(
-            1, TimeUnit.DAYS // Interval 1 hari
+            1, TimeUnit.DAYS
         ).build()
 
         WorkManager.getInstance(context).enqueueUniquePeriodicWork(
             REMINDER_WORK_NAME,
-            ExistingPeriodicWorkPolicy.REPLACE,
+            ExistingPeriodicWorkPolicy.UPDATE,
             dailyReminderRequest
         )
     }

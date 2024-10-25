@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.artonov.dicodingevent.data.database.FavoriteEvent
-import com.artonov.dicodingevent.data.response.ListEventsItem
 import com.artonov.dicodingevent.databinding.ItemFinishedEventBinding
 import com.bumptech.glide.Glide
 
@@ -29,19 +28,19 @@ class FavoriteEventAdapter : ListAdapter<FavoriteEvent, FavoriteEventAdapter.Vie
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FavoriteEventAdapter.ViewHolder {
+    ): ViewHolder {
         val binding =
             ItemFinishedEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
 
-    override fun onBindViewHolder(holder: FavoriteEventAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
 
         holder.itemView.setOnClickListener {
-            val eventId = event.id.toString()
+            val eventId = event.id
             val action = FavoriteFragmentDirections
                 .actionNavigationFavoriteToDetailFragment(eventId)
             holder.itemView.findNavController().navigate(action)

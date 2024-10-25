@@ -3,7 +3,6 @@ package com.artonov.dicodingevent.ui.favorite
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.artonov.dicodingevent.ui.detail.DetailViewModel
 
 class FavoriteViewModelFactory(
     private val application: Application,

@@ -47,7 +47,7 @@ class ReminderWorker(context: Context, workerParams: WorkerParameters) : Worker(
                     val events = response.body()?.listEvents
                     val eventName = events?.firstOrNull()?.name ?: "Tidak ada event"
                     val eventTime = events?.firstOrNull()?.beginTime
-                    val formattedEventTime = formatDate(eventTime);
+                    val formattedEventTime = formatDate(eventTime)
 
                     latestEvent.postValue(eventName)
                     sendNotification(eventName, formattedEventTime)

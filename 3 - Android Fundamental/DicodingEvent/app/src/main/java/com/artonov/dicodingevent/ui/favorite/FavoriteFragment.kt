@@ -1,17 +1,13 @@
 package com.artonov.dicodingevent.ui.favorite
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.artonov.dicodingevent.R
-import com.artonov.dicodingevent.data.response.ListEventsItem
 import com.artonov.dicodingevent.databinding.FragmentFavoriteBinding
-import com.artonov.dicodingevent.ui.detail.DetailViewModel
-import com.artonov.dicodingevent.ui.detail.DetailViewModelFactory
 
 class FavoriteFragment : Fragment() {
 
@@ -24,7 +20,7 @@ class FavoriteFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return binding.root
     }

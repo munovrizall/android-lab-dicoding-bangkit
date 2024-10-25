@@ -1,6 +1,5 @@
 package com.artonov.dicodingevent.data.database
 
-import com.artonov.dicodingevent.data.database.FavoriteEvent
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room

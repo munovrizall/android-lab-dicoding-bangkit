@@ -8,10 +8,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.artonov.dicodingevent.data.response.ListEventsItem
 import com.artonov.dicodingevent.databinding.ItemFinishedEventBinding
+import com.artonov.dicodingevent.util.FormatTime
 import com.bumptech.glide.Glide
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class HomeFinishedAdapter : ListAdapter<ListEventsItem, HomeFinishedAdapter.ViewHolder>(DIFF_CALLBACK) {
 
@@ -20,24 +18,12 @@ class HomeFinishedAdapter : ListAdapter<ListEventsItem, HomeFinishedAdapter.View
         fun bind(eventsItem: ListEventsItem) {
             binding.apply {
                 tvItemName.text = eventsItem.name
-                tvEndTime.text = formatEndTime(eventsItem.endTime)
+                tvEndTime.text = FormatTime.formatDateOnly(eventsItem.endTime)
             }
 
             Glide.with(binding.root.context)
                 .load(eventsItem.imageLogo)
                 .into(binding.imgItemPhoto)
-        }
-
-        private fun formatEndTime(endTime: String?): String {
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-            val outputFormat = SimpleDateFormat("EEEE, dd/MM/yyyy",  Locale("id", "ID"))
-            val date: Date? = inputFormat.parse(endTime)
-
-            return if (date != null) {
-                outputFormat.format(date)
-            } else {
-                ""
-            }
         }
     }
 
