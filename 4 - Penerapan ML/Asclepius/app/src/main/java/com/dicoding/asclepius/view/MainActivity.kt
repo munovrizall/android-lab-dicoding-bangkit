@@ -38,7 +38,8 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK && result.data != null) {
             val resultUri = UCrop.getOutput(result.data!!)
             resultUri?.let { uri ->
-                binding.previewImageView.setImageURI(uri)
+                currentImageUri = uri
+                showImage()
             }
         } else if (result.resultCode == UCrop.RESULT_ERROR) {
             val cropError = UCrop.getError(result.data!!)
@@ -64,7 +65,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showImage() {
-        // TODO: Menampilkan gambar sesuai Gallery yang dipilih.
+        currentImageUri?.let { uri ->
+            binding.previewImageView.setImageURI(uri)
+        } ?: showToast("No image to display")
     }
 
     private fun analyzeImage() {
