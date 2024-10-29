@@ -11,9 +11,14 @@
         android:id="@+id/nav_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:backgroundTint="@color/light_blue"
+        app:itemIconTint="@color/bottom_nav_item_icon_color"
+        app:itemTextColor="@color/bottom_nav_item_text_color"
+        app:itemActiveIndicatorStyle="@color/dark_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="?android:attr/windowBackground"
         app:menu="@menu/bottom_navbar"
         />
 
