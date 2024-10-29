@@ -9,6 +9,9 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.dicoding.asclepius.R
 import com.dicoding.asclepius.databinding.ActivityMainBinding
+import com.dicoding.asclepius.helper.BottomNavigationHelper
+import com.dicoding.asclepius.view.article.ArticleActivity
+import com.dicoding.asclepius.view.history.HistoryActivity
 import com.yalantis.ucrop.UCrop
 import java.io.File
 
@@ -21,6 +24,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.navBottom.selectedItemId = R.id.analyze
+        BottomNavigationHelper.setupBottomNavigation(this, binding.navBottom)
 
         binding.galleryButton.setOnClickListener{
             startGallery()
@@ -59,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         val destinationUri = Uri.fromFile(File(cacheDir, "cropped_image.jpg"))
         val uCrop = UCrop.of(uri, destinationUri)
             .withAspectRatio(1f, 1f)
-            .withMaxResultSize(500, 500)
+            .withMaxResultSize(1000, 1000)
 
         cropLauncher.launch(uCrop.getIntent(this))
     }
