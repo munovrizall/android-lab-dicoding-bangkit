@@ -10,15 +10,22 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.dicoding.asclepius.R
 import com.dicoding.asclepius.databinding.ActivityMainBinding
 import com.dicoding.asclepius.helper.BottomNavigationHelper
+import com.dicoding.asclepius.helper.ImageClassifierHelper
 import com.dicoding.asclepius.view.article.ArticleActivity
 import com.dicoding.asclepius.view.history.HistoryActivity
 import com.yalantis.ucrop.UCrop
+import org.tensorflow.lite.task.vision.classifier.Classifications
 import java.io.File
+import java.text.NumberFormat
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var imageClassifierHelper: ImageClassifierHelper
 
     private var currentImageUri: Uri? = null
+    private var results: String? = null
+    private var prediction: String? = null
+    private var score: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +37,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.galleryButton.setOnClickListener{
             startGallery()
+        }
+
+        val intent = Intent(this, ResultActivity::class.java)
+        binding.analyzeButton.setOnClickListener {
+            analyzeImage(intent)
+            moveToResult(intent)
         }
     }
 
@@ -76,12 +89,45 @@ class MainActivity : AppCompatActivity() {
         } ?: showToast("No image to display")
     }
 
-    private fun analyzeImage() {
-        // TODO: Menganalisa gambar yang berhasil ditampilkan.
+    private fun analyzeImage(argument: Intent) {
+        imageClassifierHelper = ImageClassifierHelper(
+            context = this,
+            classifierListener = object : ImageClassifierHelper.ClassifierListener {
+                override fun onResults(result: List<Classifications>?, inferenceTime: Long) {
+                    result?.let { it ->
+                        if (it.isNotEmpty() && it[0].categories.isNotEmpty()) {
+                            println(it)
+                            val sortedCategories =
+                                it[0].categories.sortedByDescending { it?.score }
+                            results =
+                                sortedCategories.joinToString("\n") {
+                                    "${it.label} " + NumberFormat.getPercentInstance()
+                                        .format(it.score).trim()
+                                }
+                            prediction = sortedCategories[0].label
+                            score =
+                                NumberFormat.getPercentInstance().format(sortedCategories[0].score)
+                        } else {
+                            showToast("Analyze fail, try again")
+                        }
+                    }
+                }
+
+                override fun onError(error: String) {
+                    runOnUiThread {
+                        Toast.makeText(this@MainActivity, error, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        )
+        currentImageUri?.let { this.imageClassifierHelper.classifyStaticImage(it) }
+        argument.putExtra(ResultActivity.EXTRA_RESULT, results)
+        argument.putExtra(ResultActivity.EXTRA_PREDICT, prediction)
+        argument.putExtra(ResultActivity.EXTRA_SCORE, score)
     }
 
-    private fun moveToResult() {
-        val intent = Intent(this, ResultActivity::class.java)
+    private fun moveToResult(intent: Intent) {
+        intent.putExtra(ResultActivity.EXTRA_IMAGE_URI, currentImageUri.toString())
         startActivity(intent)
     }
 
