@@ -1,6 +1,5 @@
 package com.dicoding.asclepius.view
 
-import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +10,7 @@ import com.dicoding.asclepius.R
 import com.dicoding.asclepius.databinding.ActivityMainBinding
 import com.dicoding.asclepius.helper.BottomNavigationHelper
 import com.dicoding.asclepius.helper.ImageClassifierHelper
-import com.dicoding.asclepius.view.article.ArticleActivity
-import com.dicoding.asclepius.view.history.HistoryActivity
+import com.dicoding.asclepius.view.result.ResultActivity
 import com.yalantis.ucrop.UCrop
 import org.tensorflow.lite.task.vision.classifier.Classifications
 import java.io.File
@@ -129,6 +127,9 @@ class MainActivity : AppCompatActivity() {
     private fun moveToResult(intent: Intent) {
         intent.putExtra(ResultActivity.EXTRA_IMAGE_URI, currentImageUri.toString())
         startActivity(intent)
+
+        binding.previewImageView.setImageResource(R.drawable.ic_place_holder)
+        currentImageUri = null
     }
 
     private fun showToast(message: String) {

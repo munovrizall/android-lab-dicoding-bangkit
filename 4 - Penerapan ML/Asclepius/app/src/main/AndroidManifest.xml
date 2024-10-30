@@ -22,7 +22,7 @@
             android:name=".view.article.ArticleActivity"
             android:exported="false" />
         <activity
-            android:name=".view.ResultActivity"
+            android:name=".view.result.ResultActivity"
             android:exported="false" />
         <activity
             android:name=".view.MainActivity"

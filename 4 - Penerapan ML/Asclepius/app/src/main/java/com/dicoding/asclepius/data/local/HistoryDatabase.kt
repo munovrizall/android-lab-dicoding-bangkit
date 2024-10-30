@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [History::class], version = 1)
+@Database(entities = [History::class], version = 4)
 abstract class HistoryDatabase : RoomDatabase() {
     abstract fun historyDao(): HistoryDao
 
@@ -19,6 +19,7 @@ abstract class HistoryDatabase : RoomDatabase() {
                 synchronized(HistoryDatabase::class.java) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
                         HistoryDatabase::class.java, "history_db")
+                        .fallbackToDestructiveMigration()
                         .build()
                 }
             }
