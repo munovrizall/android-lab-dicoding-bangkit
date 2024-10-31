@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.dicoding.asclepius.R
@@ -73,7 +74,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startCrop(uri: Uri) {
-        val destinationUri = Uri.fromFile(File(cacheDir, "cropped_image.jpg"))
+        val uniqueFileName = "cropped_image_${System.currentTimeMillis()}.jpg"
+        val destinationUri = Uri.fromFile(File(cacheDir, uniqueFileName))
         val uCrop = UCrop.of(uri, destinationUri)
             .withAspectRatio(1f, 1f)
             .withMaxResultSize(1000, 1000)
@@ -82,6 +84,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showImage() {
+        Log.d("MainActivity", "Current Image URI: $currentImageUri")
         currentImageUri?.let { uri ->
             binding.previewImageView.setImageURI(uri)
         } ?: showToast("No image to display")
@@ -129,7 +132,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
 
         binding.previewImageView.setImageResource(R.drawable.ic_place_holder)
-        currentImageUri = null
     }
 
     private fun showToast(message: String) {

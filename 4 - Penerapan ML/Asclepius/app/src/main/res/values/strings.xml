@@ -10,4 +10,8 @@
     <string name="article">Article</string>
     <string name="history">History</string>
     <string name="simpan_analisis">Simpan Analisis</string>
+    <string name="score">Score</string>
+    <string name="prediction">Prediction</string>
+    <string name="delete">Delete</string>
+    <string name="delete_button">delete button</string>
 </resources>
