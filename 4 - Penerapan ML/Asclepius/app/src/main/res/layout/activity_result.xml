@@ -15,7 +15,7 @@
             android:id="@+id/result_image"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:contentDescription="@string/image_selected_for_analyzed"
             app:srcCompat="@drawable/ic_place_holder"/>
 
@@ -24,6 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
             android:text="@string/result" />
 
         <Button

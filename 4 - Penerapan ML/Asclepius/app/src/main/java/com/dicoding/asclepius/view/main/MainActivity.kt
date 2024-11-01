@@ -1,4 +1,4 @@
-package com.dicoding.asclepius.view
+package com.dicoding.asclepius.view.main
 
 import android.content.Intent
 import android.net.Uri
@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import com.dicoding.asclepius.R
 import com.dicoding.asclepius.databinding.ActivityMainBinding
 import com.dicoding.asclepius.helper.BottomNavigationHelper
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     private var prediction: String? = null
     private var score: String? = null
 
+    private val mainViewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -34,21 +38,34 @@ class MainActivity : AppCompatActivity() {
         binding.navBottom.selectedItemId = R.id.analyze
         BottomNavigationHelper.setupBottomNavigation(this, binding.navBottom)
 
+        mainViewModel.currentImageUri.observe(this) { uri ->
+            uri?.let {
+                binding.previewImageView.setImageURI(it)
+            }
+        }
+
         binding.galleryButton.setOnClickListener{
             startGallery()
         }
 
         val intent = Intent(this, ResultActivity::class.java)
         binding.analyzeButton.setOnClickListener {
-            analyzeImage(intent)
-            moveToResult(intent)
+            if (mainViewModel.currentImageUri.value == null) {
+                showToast("Choose image first")
+            } else {
+                analyzeImage(intent)
+                moveToResult(intent)
+            }
         }
     }
 
-    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK && result.data != null) {
-            val selectedImageUri = result.data?.data
-            selectedImageUri?.let { startCrop(it) }
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri: Uri? ->
+
+        if (uri != null) {
+            currentImageUri = uri
+            startCrop(uri)
+        } else {
+            Log.d("Photo Picker", "No media selected")
         }
     }
 
@@ -56,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK && result.data != null) {
             val resultUri = UCrop.getOutput(result.data!!)
             resultUri?.let { uri ->
-                currentImageUri = uri
+                mainViewModel.setImageUri(uri)
                 showImage()
             }
         } else if (result.resultCode == UCrop.RESULT_ERROR) {
@@ -68,9 +85,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        galleryLauncher.launch(intent)
+        galleryLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
     private fun startCrop(uri: Uri) {
@@ -85,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showImage() {
         Log.d("MainActivity", "Current Image URI: $currentImageUri")
-        currentImageUri?.let { uri ->
+        mainViewModel.currentImageUri.value?.let { uri ->
             binding.previewImageView.setImageURI(uri)
         } ?: showToast("No image to display")
     }
@@ -97,19 +112,17 @@ class MainActivity : AppCompatActivity() {
                 override fun onResults(result: List<Classifications>?, inferenceTime: Long) {
                     result?.let { it ->
                         if (it.isNotEmpty() && it[0].categories.isNotEmpty()) {
-                            println(it)
-                            val sortedCategories =
-                                it[0].categories.sortedByDescending { it?.score }
-                            results =
-                                sortedCategories.joinToString("\n") {
-                                    "${it.label} " + NumberFormat.getPercentInstance()
-                                        .format(it.score).trim()
-                                }
-                            prediction = sortedCategories[0].label
-                            score =
-                                NumberFormat.getPercentInstance().format(sortedCategories[0].score)
+                            // Mengurutkan kategori berdasarkan skor terbesar
+                            val sortedCategories = it[0].categories.sortedByDescending { category -> category.score }
+
+                            val highestCategory = sortedCategories[0]
+                            prediction = highestCategory.label
+                            score = NumberFormat.getPercentInstance().format(highestCategory.score)
+
+                            // Mengirimkan hanya hasil terbesar ke ResultActivity
+                            results = "$prediction $score"
                         } else {
-                            showToast("Analyze fail, try again")
+                            showToast("Analyze failed, try again")
                         }
                     }
                 }
@@ -121,14 +134,18 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         )
-        currentImageUri?.let { this.imageClassifierHelper.classifyStaticImage(it) }
-        argument.putExtra(ResultActivity.EXTRA_RESULT, results)
-        argument.putExtra(ResultActivity.EXTRA_PREDICT, prediction)
-        argument.putExtra(ResultActivity.EXTRA_SCORE, score)
+
+        mainViewModel.currentImageUri.value?.let { uri ->
+            imageClassifierHelper.classifyStaticImage(uri)
+            argument.putExtra(ResultActivity.EXTRA_RESULT, results)
+            argument.putExtra(ResultActivity.EXTRA_PREDICT, prediction)
+            argument.putExtra(ResultActivity.EXTRA_SCORE, score)
+        }
     }
 
+
     private fun moveToResult(intent: Intent) {
-        intent.putExtra(ResultActivity.EXTRA_IMAGE_URI, currentImageUri.toString())
+        intent.putExtra(ResultActivity.EXTRA_IMAGE_URI, mainViewModel.currentImageUri.value.toString())
         startActivity(intent)
 
         binding.previewImageView.setImageResource(R.drawable.ic_place_holder)
