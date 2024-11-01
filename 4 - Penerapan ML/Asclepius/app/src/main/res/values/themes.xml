@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Asclepius" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -12,7 +12,5 @@
 
     <style name="Theme.Asclepius" parent="Base.Theme.Asclepius" />
 
-    <style name="Theme.BottomNavbar" parent="Widget.Material3.BottomNavigationView">
-        <item name="android:background">@color/blue</item>
-    </style>
+
 </resources>

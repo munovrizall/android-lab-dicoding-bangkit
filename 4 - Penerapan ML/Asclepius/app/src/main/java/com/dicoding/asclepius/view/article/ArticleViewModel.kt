@@ -4,15 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
-import com.dicoding.asclepius.BuildConfig
 import com.dicoding.asclepius.BuildConfig.API_KEY
 import com.dicoding.asclepius.data.remote.response.ArticlesItem
 import com.dicoding.asclepius.data.remote.response.DetailNewsResponse
 import com.dicoding.asclepius.data.remote.retrofit.ApiConfig
-import com.dicoding.asclepius.data.remote.retrofit.ApiService
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,7 +27,7 @@ class ArticleViewModel : ViewModel() {
         getArticle(QUERY, CATEGORY, LANGUAGE, API_KEY)
     }
 
-    fun getArticle(query: String, category: String, language: String, apiKey: String) {
+    private fun getArticle(query: String, category: String, language: String, apiKey: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getTopHeadlines(query, category, language, apiKey)
         client.enqueue(object : Callback<DetailNewsResponse> {

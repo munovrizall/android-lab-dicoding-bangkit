@@ -1,13 +1,9 @@
 package com.dicoding.asclepius.view.history
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,8 +13,6 @@ import com.dicoding.asclepius.data.local.History
 import com.dicoding.asclepius.data.repository.HistoryRepository
 import com.dicoding.asclepius.databinding.ActivityHistoryBinding
 import com.dicoding.asclepius.helper.BottomNavigationHelper
-import com.dicoding.asclepius.view.MainActivity
-import com.dicoding.asclepius.view.article.ArticleActivity
 
 class HistoryActivity : AppCompatActivity() {
 

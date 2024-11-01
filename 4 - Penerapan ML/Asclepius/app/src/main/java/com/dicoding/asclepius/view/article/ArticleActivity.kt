@@ -5,16 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.asclepius.R
-import com.dicoding.asclepius.data.ViewModelFactory
 import com.dicoding.asclepius.data.remote.response.ArticlesItem
 import com.dicoding.asclepius.databinding.ActivityArticleBinding
 import com.dicoding.asclepius.helper.BottomNavigationHelper
@@ -23,7 +18,6 @@ class ArticleActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityArticleBinding
     private lateinit var rvArticle: RecyclerView
-    private lateinit var articleAdapter: ArticleAdapter
 
     private val ArticleViewModel by viewModels<ArticleViewModel>()
 

@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:scaleType="fitCenter"
+            android:contentDescription="@string/image_selected_for_analyzed"
             app:srcCompat="@drawable/ic_place_holder"/>
 
         <TextView
