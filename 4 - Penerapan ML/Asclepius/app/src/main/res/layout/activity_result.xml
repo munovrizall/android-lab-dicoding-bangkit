@@ -29,7 +29,7 @@
             android:id="@+id/btn_save_analyze_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/simpan_analisis"
+            android:text="@string/save"
             android:textColor="@color/white"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"

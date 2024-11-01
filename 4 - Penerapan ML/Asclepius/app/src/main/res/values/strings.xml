@@ -14,4 +14,7 @@
     <string name="prediction">Prediction</string>
     <string name="delete">Delete</string>
     <string name="delete_button">delete button</string>
+    <string name="title">Title</string>
+    <string name="description">description</string>
+    <string name="save">Save</string>
 </resources>

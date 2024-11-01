@@ -4,56 +4,66 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.dicoding.asclepius.BuildConfig
+import com.dicoding.asclepius.BuildConfig.API_KEY
 import com.dicoding.asclepius.data.remote.response.ArticlesItem
+import com.dicoding.asclepius.data.remote.response.DetailNewsResponse
+import com.dicoding.asclepius.data.remote.retrofit.ApiConfig
 import com.dicoding.asclepius.data.remote.retrofit.ApiService
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class ArticleViewModel(private val apiService: ApiService) : ViewModel() {
-    private val apiKey = BuildConfig.API_KEY
 
+class ArticleViewModel : ViewModel() {
     private val _listArticle = MutableLiveData<List<ArticlesItem>>()
     val listArticle: LiveData<List<ArticlesItem>> = _listArticle
 
     private val _isLoading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean> = _isLoading
+    val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?> = _errorMessage
+    private val _isError = MutableLiveData<Boolean>()
+    val isError: LiveData<Boolean> = _isError
 
     init {
-        viewModelScope.launch {
-            showArticles()
-        }
+        getArticle(QUERY, CATEGORY, LANGUAGE, API_KEY)
     }
 
-    private suspend fun showArticles(): List<ArticlesItem> {
+    fun getArticle(query: String, category: String, language: String, apiKey: String) {
         _isLoading.value = true
-        _errorMessage.value = null
-
-        try {
-            val response = apiService.getArticle(QUERY, CATEGORY, LANGUAGE, apiKey)
-            if (response.status == "ok") {
-            _isLoading.value = false
-                return response.articles ?: emptyList()
-            } else {
-                    _errorMessage.value = "Data tidak ditemukan"
-                Log.e("NewsViewModel", "Error fetching articles")
+        val client = ApiConfig.getApiService().getTopHeadlines(query, category, language, apiKey)
+        client.enqueue(object : Callback<DetailNewsResponse> {
+            override fun onResponse(
+                call: Call<DetailNewsResponse>,
+                response: Response<DetailNewsResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _isError.value = false
+                    _listArticle.value = response.body()?.articles
+                } else {
+                    _isError.value = true
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
             }
 
-        } catch (e: Exception) {
-            _isLoading.value = false
-            _errorMessage.value = "Gagal memuat data: ${e.message}"
-            Log.e(TAG, "onFailure: ${e.message}")
-        }
-        return emptyList()
+            override fun onFailure(call: Call<DetailNewsResponse>, t: Throwable) {
+                _isLoading.value = false
+                _isError.value = true
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+        })
     }
 
     companion object {
-        private const val TAG = "UpcomingViewModel"
+        private const val TAG = "ArticleViewModel"
         private const val QUERY = "cancer"
         private const val CATEGORY = "health"
         private const val LANGUAGE = "en"
+
     }
+
 }
