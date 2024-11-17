@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TaleNet</string>
+    <string name="masukkan_password">Masukkan Password</string>
+    <string name="masukkan_password_anda">masukkan password anda</string>
 </resources>
