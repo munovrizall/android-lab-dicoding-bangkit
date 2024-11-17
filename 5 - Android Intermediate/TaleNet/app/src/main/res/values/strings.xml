@@ -5,4 +5,6 @@
     <string name="masukkan_email">Masukkan Email</string>
     <string name="email_error">Format email salah</string>
     <string name="password_error">Password tidak boleh kurang dari 8 karakter</string>
+    <string name="login_title">Sudah siap untuk berbagi cerita?</string>
+    <string name="login_subtitle">Masukkan datamu dulu ya</string>
 </resources>
