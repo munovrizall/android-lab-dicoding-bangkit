@@ -23,10 +23,10 @@ class PasswordEditText @JvmOverloads constructor(
 
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s != null && s.length < 8) {
-                    error = "Password tidak boleh kurang dari 8 karakter"
+                error = if (s != null && s.length < 8) {
+                    context.getString(R.string.password_error)
                 } else {
-                    error = null
+                    null
                 }
             }
 
@@ -43,7 +43,7 @@ class PasswordEditText @JvmOverloads constructor(
         if (error.isNullOrEmpty()) {
             setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_eye_off, 0)
         } else {
-            setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)// Hilangkan ikon saat error
+            setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)
         }
     }
 
