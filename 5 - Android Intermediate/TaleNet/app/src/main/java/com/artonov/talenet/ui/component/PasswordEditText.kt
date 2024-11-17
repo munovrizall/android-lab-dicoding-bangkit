@@ -20,7 +20,7 @@ class PasswordEditText @JvmOverloads constructor(
     init {
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // No action needed before text is changed
+
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s != null && s.length < 8) {
@@ -31,7 +31,7 @@ class PasswordEditText @JvmOverloads constructor(
             }
 
             override fun afterTextChanged(s: Editable?) {
-                // No action needed after text is changed
+
             }
         })
 
@@ -43,7 +43,7 @@ class PasswordEditText @JvmOverloads constructor(
         if (error.isNullOrEmpty()) {
             setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_eye_off, 0)
         } else {
-            setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0) // Hilangkan ikon saat error
+            setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0)// Hilangkan ikon saat error
         }
     }
 
