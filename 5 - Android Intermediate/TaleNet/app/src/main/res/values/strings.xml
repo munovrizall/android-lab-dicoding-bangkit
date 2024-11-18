@@ -8,4 +8,9 @@
     <string name="login_title">Sudah siap untuk berbagi cerita?</string>
     <string name="login_subtitle">Masukkan datamu dulu ya</string>
     <string name="register_prompt">Belum punya akun? Daftar disini</string>
+    <string name="register_title">Lengkapi data dirimu di bawah ini ya</string>
+    <string name="masukkan_nama">Masukkan Nama</string>
+    <string name="login_prompt">Sudah punya akun? Login disini</string>
+    <string name="btn_regist">Daftar</string>
+    <string name="btn_login">Masuk</string>
 </resources>
