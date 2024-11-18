@@ -16,6 +16,7 @@ class EmailEditText @JvmOverloads constructor(
 ) : TextInputEditText(context, attrs, defStyleAttr) {
 
     init {
+        textSize = 17f
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 

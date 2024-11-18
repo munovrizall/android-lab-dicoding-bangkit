@@ -18,6 +18,7 @@ class PasswordEditText @JvmOverloads constructor(
     private var isPasswordVisible = false
 
     init {
+        textSize = 17f
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
