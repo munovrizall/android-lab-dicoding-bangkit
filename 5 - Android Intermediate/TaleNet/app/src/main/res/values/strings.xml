@@ -7,4 +7,5 @@
     <string name="password_error">Password tidak boleh kurang dari 8 karakter</string>
     <string name="login_title">Sudah siap untuk berbagi cerita?</string>
     <string name="login_subtitle">Masukkan datamu dulu ya</string>
+    <string name="register_prompt">Belum punya akun? Daftar disini</string>
 </resources>
