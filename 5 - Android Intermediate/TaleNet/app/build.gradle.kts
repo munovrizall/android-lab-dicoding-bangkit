@@ -50,4 +50,13 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.lottie)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+
+    // Coroutines
+    implementation(libs.androidx.lifecycle.viewmodel.ktx) // atau versi terbaru
+    implementation (libs.kotlinx.coroutines.android)
 }
