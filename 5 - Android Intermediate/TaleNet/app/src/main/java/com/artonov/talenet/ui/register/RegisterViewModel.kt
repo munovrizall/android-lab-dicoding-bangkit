@@ -1,5 +1,6 @@
 package com.artonov.talenet.ui.register
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,9 +32,11 @@ class RegisterViewModel(private val repository: RegisterRepository) : ViewModel(
                 val response = repository.register(name, email, password)
                 _isLoading.value = false
                 _registerResult.value = response
+                Log.d("RegisterViewModel", "Success: $response")
             } catch (e: Exception) {
                 _isLoading.value = false
                 _errorMessage.value = "Registration failed: ${e.message}"
+                Log.e("RegisterViewModel", "Error: ${e.message}")
             }
         }
     }

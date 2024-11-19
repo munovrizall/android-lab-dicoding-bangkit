@@ -1,6 +1,7 @@
 package com.artonov.talenet.data.repository
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.artonov.talenet.data.response.RegisterResponse
@@ -14,6 +15,13 @@ import java.util.concurrent.Executors
 class RegisterRepository(private val apiService: ApiService) {
 
     suspend fun register(name: String, email: String, password: String): RegisterResponse {
-        return apiService.register(name, email, password)
+        return try {
+            val response = apiService.register(name, email, password)
+            Log.d("RegisterRepository", "Success: $response")
+            response
+        } catch (e: Exception) {
+            Log.e("RegisterRepository", "Error: ${e.message}")
+            throw e
+        }
     }
 }
