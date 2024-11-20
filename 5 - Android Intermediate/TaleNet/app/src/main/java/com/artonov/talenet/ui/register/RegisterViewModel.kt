@@ -8,9 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.artonov.talenet.data.repository.RegisterRepository
 import com.artonov.talenet.data.response.RegisterResponse
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RegisterViewModel(private val repository: RegisterRepository) : ViewModel() {
 
@@ -32,7 +29,7 @@ class RegisterViewModel(private val repository: RegisterRepository) : ViewModel(
                 val response = repository.register(name, email, password)
                 _isLoading.value = false
                 _registerResult.value = response
-                Log.d("RegisterViewModel", "Success: $response")
+                Log.d("RegisterViewModel", "Success: ${response.message}")
             } catch (e: Exception) {
                 _isLoading.value = false
                 _errorMessage.value = "Registration failed: ${e.message}"
