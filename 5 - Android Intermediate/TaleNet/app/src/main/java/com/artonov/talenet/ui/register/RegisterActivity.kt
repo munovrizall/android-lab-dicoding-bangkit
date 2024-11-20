@@ -76,6 +76,7 @@ class RegisterActivity : AppCompatActivity() {
                     .show()
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+                finish()
             } else {
                 Toast.makeText(this, getString(R.string.regist_fail), Toast.LENGTH_SHORT).show()
             }

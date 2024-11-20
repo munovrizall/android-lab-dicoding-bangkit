@@ -62,6 +62,7 @@ class LoginActivity : AppCompatActivity() {
                     .show()
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+                finish()
             } else {
                 Toast.makeText(this, getString(R.string.login_fail), Toast.LENGTH_SHORT).show()
             }
