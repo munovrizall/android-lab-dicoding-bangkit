@@ -32,12 +32,8 @@ class LoginActivity : AppCompatActivity() {
     private val viewModel: LoginViewModel by viewModels { Injector.provideLoginViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
         super.onCreate(savedInstanceState)
         checkUserIsLoggedIn()
-
-        window.enterTransition = Fade()
-        window.exitTransition = Fade()
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -46,7 +42,8 @@ class LoginActivity : AppCompatActivity() {
 
         binding.tvRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+            startActivity(intent)
+            finish()
         }
 
         binding.btnLogin.setOnClickListener {
@@ -61,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.login_successful), Toast.LENGTH_SHORT)
                     .show()
                 val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+                startActivity(intent)
                 finish()
             } else {
                 Toast.makeText(this, getString(R.string.login_fail), Toast.LENGTH_SHORT).show()

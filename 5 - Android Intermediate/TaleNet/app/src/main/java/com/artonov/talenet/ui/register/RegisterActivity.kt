@@ -22,11 +22,7 @@ class RegisterActivity : AppCompatActivity() {
     private val viewModel: RegisterViewModel by viewModels { Injector.provideRegisterViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
         super.onCreate(savedInstanceState)
-        window.enterTransition = Fade()
-        window.exitTransition = Fade()
-
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -34,7 +30,7 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.tvLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+            startActivity(intent)
         }
 
         binding.btnRegister.setOnClickListener {
@@ -75,7 +71,7 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.regist_successful), Toast.LENGTH_SHORT)
                     .show()
                 val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+                startActivity(intent)
                 finish()
             } else {
                 Toast.makeText(this, getString(R.string.regist_fail), Toast.LENGTH_SHORT).show()
