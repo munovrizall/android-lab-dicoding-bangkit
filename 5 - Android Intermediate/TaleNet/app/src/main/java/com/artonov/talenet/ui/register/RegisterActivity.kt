@@ -51,9 +51,11 @@ class RegisterActivity : AppCompatActivity() {
 
         viewModel.registerResult.observe(this) { response ->
             if (response != null) {
-                Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.regist_successful), Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
             } else {
-                Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.regist_fail), Toast.LENGTH_SHORT).show()
             }
         }
 

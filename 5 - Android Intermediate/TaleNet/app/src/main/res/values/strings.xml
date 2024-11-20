@@ -13,4 +13,6 @@
     <string name="login_prompt">Sudah punya akun? Login disini</string>
     <string name="btn_regist">Daftar</string>
     <string name="btn_login">Masuk</string>
+    <string name="regist_successful">Registrasi berhasil, silahkan login</string>
+    <string name="regist_fail">Registration gagal</string>
 </resources>
