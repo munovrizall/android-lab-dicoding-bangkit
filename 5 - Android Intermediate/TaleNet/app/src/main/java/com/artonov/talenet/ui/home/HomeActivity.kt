@@ -2,6 +2,8 @@ package com.artonov.talenet.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -23,14 +25,27 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
-        binding.btnLogout.setOnClickListener {
-            lifecycleScope.launch {
-                viewModel.logout()
-                val intent = Intent(this@HomeActivity, LoginActivity::class.java)
-                startActivity(intent)
-                finish()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.appbar_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_logout -> {
+                lifecycleScope.launch {
+                    viewModel.logout()
+                    val intent = Intent(this@HomeActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

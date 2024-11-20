@@ -58,12 +58,12 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.loginResult.observe(this) { response ->
             if (response != null) {
-                Toast.makeText(this, getString(R.string.regist_successful), Toast.LENGTH_SHORT)
+                Toast.makeText(this, getString(R.string.login_successful), Toast.LENGTH_SHORT)
                     .show()
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
             } else {
-                Toast.makeText(this, getString(R.string.regist_fail), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.login_fail), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -86,8 +86,10 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else {
-                Toast.makeText(this@LoginActivity,
-                    getString(R.string.login_needed), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@LoginActivity,
+                    getString(R.string.login_needed), Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

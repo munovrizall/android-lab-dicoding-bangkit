@@ -19,4 +19,6 @@
     <string name="error_email_empty">Email tidak boleh kosong</string>
     <string name="error_password_empty">Password tidak boleh kosong</string>
     <string name="login_needed">Login terlebih dahulu</string>
+    <string name="login_successful">Login berhasil</string>
+    <string name="login_fail">Login gagal</string>
 </resources>
