@@ -21,4 +21,6 @@
     <string name="login_needed">Login terlebih dahulu</string>
     <string name="login_successful">Login berhasil</string>
     <string name="login_fail">Login gagal</string>
+    <string name="image_story_content_desc">gambar dari story</string>
+    <string name="fab_addstory_content_desc">tambah cerita</string>
 </resources>
