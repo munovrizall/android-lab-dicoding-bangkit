@@ -46,12 +46,39 @@ class RegisterActivity : AppCompatActivity() {
             val name = binding.etName.editText?.text.toString()
             val email = binding.etEmail.editText?.text.toString()
             val password = binding.etPassword.editText?.text.toString()
-            viewModel.register(name, email, password)
+
+            var isValid = true
+
+            if (name.isEmpty()) {
+                binding.etName.error = getString(R.string.et_name_error)
+                isValid = false
+            } else {
+                binding.etName.error = null
+            }
+
+            if (email.isEmpty()) {
+                binding.etEmail.error = getString(R.string.error_email_empty)
+                isValid = false
+            } else {
+                binding.etEmail.error = null
+            }
+
+            if (password.isEmpty()) {
+                binding.etPassword.error = getString(R.string.error_password_empty)
+                isValid = false
+            } else {
+                binding.etPassword.error = null
+            }
+
+            if (isValid) {
+                viewModel.register(name, email, password)
+            }
         }
 
         viewModel.registerResult.observe(this) { response ->
             if (response != null) {
-                Toast.makeText(this, getString(R.string.regist_successful), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.regist_successful), Toast.LENGTH_SHORT)
+                    .show()
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
             } else {

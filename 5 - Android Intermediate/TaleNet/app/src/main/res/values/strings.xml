@@ -15,4 +15,7 @@
     <string name="btn_login">Masuk</string>
     <string name="regist_successful">Registrasi berhasil, silahkan login</string>
     <string name="regist_fail">Registration gagal</string>
+    <string name="et_name_error">Nama tidak boleh kosong</string>
+    <string name="error_email_empty">Email tidak boleh kosong</string>
+    <string name="error_password_empty">Password tidak boleh kosong</string>
 </resources>
