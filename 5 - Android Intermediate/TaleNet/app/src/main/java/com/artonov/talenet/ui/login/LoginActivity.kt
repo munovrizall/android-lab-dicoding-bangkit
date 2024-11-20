@@ -14,6 +14,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.artonov.talenet.R
 import com.artonov.talenet.data.di.Injector
 import com.artonov.talenet.databinding.ActivityLoginBinding
@@ -21,6 +22,8 @@ import com.artonov.talenet.ui.home.HomeActivity
 import com.artonov.talenet.ui.register.RegisterActivity
 import com.google.android.material.animation.AnimatorSetCompat.playTogether
 import kotlinx.coroutines.NonCancellable.start
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlin.math.log
 
 class LoginActivity : AppCompatActivity() {
@@ -31,6 +34,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
         super.onCreate(savedInstanceState)
+        checkUserIsLoggedIn()
+
         window.enterTransition = Fade()
         window.exitTransition = Fade()
 
@@ -69,6 +74,20 @@ class LoginActivity : AppCompatActivity() {
         viewModel.errorMessage.observe(this) { errorMessage ->
             errorMessage?.let {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun checkUserIsLoggedIn() {
+        lifecycleScope.launch {
+            val user = viewModel.getUser().first()
+            if (user.token.isNotEmpty()) {
+                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                Toast.makeText(this@LoginActivity,
+                    getString(R.string.login_needed), Toast.LENGTH_SHORT).show()
             }
         }
     }

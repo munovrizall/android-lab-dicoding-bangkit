@@ -18,4 +18,5 @@
     <string name="et_name_error">Nama tidak boleh kosong</string>
     <string name="error_email_empty">Email tidak boleh kosong</string>
     <string name="error_password_empty">Password tidak boleh kosong</string>
+    <string name="login_needed">Login terlebih dahulu</string>
 </resources>

@@ -45,4 +45,6 @@ class LoginViewModel(
             }
         }
     }
+
+    fun getUser() = userPreference.getUser()
 }
