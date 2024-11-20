@@ -57,6 +57,9 @@ dependencies {
     implementation(libs.logging.interceptor)
 
     // Coroutines
-    implementation(libs.androidx.lifecycle.viewmodel.ktx) // atau versi terbaru
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.kotlinx.coroutines.android)
+
+    // Datastore
+    implementation(libs.androidx.datastore.preferences)
 }

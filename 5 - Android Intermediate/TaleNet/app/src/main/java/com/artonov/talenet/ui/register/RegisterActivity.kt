@@ -9,22 +9,17 @@ import android.transition.Fade
 import android.view.View
 import android.view.Window
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.artonov.talenet.R
 import com.artonov.talenet.data.di.Injector
 import com.artonov.talenet.databinding.ActivityRegisterBinding
 import com.artonov.talenet.ui.login.LoginActivity
-import com.google.android.material.animation.AnimatorSetCompat.playTogether
-import kotlinx.coroutines.NonCancellable.start
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private val viewModel: RegisterViewModel by viewModels { Injector.provideViewModelFactory(this) }
+    private val viewModel: RegisterViewModel by viewModels { Injector.provideRegisterViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
