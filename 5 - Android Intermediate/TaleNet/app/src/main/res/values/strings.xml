@@ -24,4 +24,7 @@
     <string name="image_story_content_desc">gambar dari story</string>
     <string name="fab_addstory_content_desc">tambah cerita</string>
     <string name="story_image_content_description">gambar dari story</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="upload">Buat Story</string>
 </resources>

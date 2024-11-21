@@ -16,6 +16,7 @@ import com.artonov.talenet.data.di.Injector
 import com.artonov.talenet.data.response.ListStoryItem
 import com.artonov.talenet.databinding.ActivityStoryBinding
 import com.artonov.talenet.ui.login.LoginActivity
+import com.artonov.talenet.ui.story_add.StoryAddActivity
 import kotlinx.coroutines.launch
 
 class StoryActivity : AppCompatActivity() {
@@ -45,6 +46,11 @@ class StoryActivity : AppCompatActivity() {
 
         viewModel.errorMessage.observe(this) {
             if (it != null) Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
+
+        binding.fabAddstory.setOnClickListener {
+            val intent = Intent(this, StoryAddActivity::class.java)
+            startActivity(intent)
         }
     }
 
