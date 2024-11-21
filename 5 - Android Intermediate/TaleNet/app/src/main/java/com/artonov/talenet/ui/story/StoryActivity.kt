@@ -1,29 +1,26 @@
-package com.artonov.talenet.ui.home
+package com.artonov.talenet.ui.story
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.artonov.talenet.R
 import com.artonov.talenet.data.di.Injector
-import com.artonov.talenet.databinding.ActivityHomeBinding
+import com.artonov.talenet.databinding.ActivityStoryBinding
 import com.artonov.talenet.ui.login.LoginActivity
 import kotlinx.coroutines.launch
 
-class HomeActivity : AppCompatActivity() {
+class StoryActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityHomeBinding
-    private val viewModel: HomeViewModel by viewModels { Injector.provideHomeViewModelFactory(this) }
+    private lateinit var binding: ActivityStoryBinding
+    private val viewModel: StoryViewModel by viewModels { Injector.provideStoryViewModelFactory(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHomeBinding.inflate(layoutInflater)
+        binding = ActivityStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
@@ -39,7 +36,7 @@ class HomeActivity : AppCompatActivity() {
             R.id.action_logout -> {
                 lifecycleScope.launch {
                     viewModel.logout()
-                    val intent = Intent(this@HomeActivity, LoginActivity::class.java)
+                    val intent = Intent(this@StoryActivity, LoginActivity::class.java)
                     startActivity(intent)
                     finish()
                 }

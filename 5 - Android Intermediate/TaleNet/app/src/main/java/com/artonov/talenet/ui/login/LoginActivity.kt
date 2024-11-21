@@ -2,29 +2,20 @@ package com.artonov.talenet.ui.login
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import android.transition.Fade
 import android.view.View
-import android.view.Window
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.artonov.talenet.R
 import com.artonov.talenet.data.di.Injector
 import com.artonov.talenet.databinding.ActivityLoginBinding
-import com.artonov.talenet.ui.home.HomeActivity
+import com.artonov.talenet.ui.story.StoryActivity
 import com.artonov.talenet.ui.register.RegisterActivity
-import com.google.android.material.animation.AnimatorSetCompat.playTogether
-import kotlinx.coroutines.NonCancellable.start
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 class LoginActivity : AppCompatActivity() {
 
@@ -57,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
             if (response != null) {
                 Toast.makeText(this, getString(R.string.login_successful), Toast.LENGTH_SHORT)
                     .show()
-                val intent = Intent(this, HomeActivity::class.java)
+                val intent = Intent(this, StoryActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
@@ -80,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val user = viewModel.getUser().first()
             if (user.token.isNotEmpty()) {
-                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                val intent = Intent(this@LoginActivity, StoryActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {

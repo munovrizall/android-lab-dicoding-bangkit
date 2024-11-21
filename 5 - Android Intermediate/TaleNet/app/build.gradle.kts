@@ -50,6 +50,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.lottie)
+    implementation(libs.glide)
 
     // Retrofit
     implementation(libs.retrofit)

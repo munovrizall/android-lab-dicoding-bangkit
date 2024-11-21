@@ -15,13 +15,6 @@ object Injector {
 
     private val Context.dataStore by preferencesDataStore(name = "user_preferences")
 
-    fun provideStoryRepository(context: Context): StoryRepository {
-        val pref = UserPreference.getInstance(context.dataStore)
-        val user = runBlocking { pref.getUser().first() }
-        val apiService = ApiConfig.getApiService(user.token)
-        return StoryRepository.getInstance(apiService, pref)
-    }
-
     private fun provideRegisterRepository(): RegisterRepository {
         val apiService = ApiConfig.getApiService()
         return RegisterRepository(apiService)
@@ -39,20 +32,29 @@ object Injector {
 
     fun provideRegisterViewModelFactory(context: Context): ViewModelFactory {
         val registerRepository = provideRegisterRepository()
-        val loginRepository = provideLoginRepository()
         val userPreference = provideUserPreference(context)
-        return ViewModelFactory(registerRepository, loginRepository, userPreference)
+        return ViewModelFactory(
+            registerRepository = registerRepository,
+            userPreference = userPreference
+        )
     }
 
     fun provideLoginViewModelFactory(context: Context): ViewModelFactory {
-        val registerRepository = provideRegisterRepository()
         val loginRepository = provideLoginRepository()
         val userPreference = provideUserPreference(context)
         return ViewModelFactory(loginRepository = loginRepository, userPreference = userPreference)
     }
 
-    fun provideHomeViewModelFactory(context: Context): ViewModelFactory {
+    fun provideStoryRepository(context: Context): StoryRepository {
         val userPreference = provideUserPreference(context)
-        return ViewModelFactory(userPreference = userPreference)
+        val user = runBlocking { userPreference.getUser().first() }
+        val apiService = ApiConfig.getApiService(user.token)
+        return StoryRepository.getInstance(apiService, userPreference)
+    }
+
+    fun provideStoryViewModelFactory(context: Context): ViewModelFactory {
+        val storyRepository = provideStoryRepository(context)
+        val userPreference = provideUserPreference(context)
+        return ViewModelFactory(storyRepository = storyRepository, userPreference = userPreference)
     }
 }
