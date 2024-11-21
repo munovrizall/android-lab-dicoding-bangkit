@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.artonov.talenet.data.preference.UserPreference
 import com.artonov.talenet.data.repository.StoryRepository
+import com.artonov.talenet.data.response.ListStoryItem
 import com.artonov.talenet.data.response.StoryResponse
 import kotlinx.coroutines.launch
 
@@ -14,8 +15,8 @@ class StoryViewModel(
     private val repository: StoryRepository
 ) : ViewModel() {
 
-    private val _listStory = MutableLiveData<StoryResponse>()
-    val listStory: LiveData<StoryResponse> = _listStory
+    private val _listStory = MutableLiveData<List<ListStoryItem>>()
+    val listStory: LiveData<List<ListStoryItem>> = _listStory
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -29,7 +30,7 @@ class StoryViewModel(
         viewModelScope.launch {
             try {
                 val response = repository.getStories()
-                _listStory.value = response
+                _listStory.value = response.listStory
             } catch (e: Exception) {
                 _errorMessage.value = e.message
             } finally {

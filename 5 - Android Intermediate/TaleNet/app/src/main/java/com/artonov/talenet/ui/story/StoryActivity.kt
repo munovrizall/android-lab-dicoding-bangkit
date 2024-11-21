@@ -1,14 +1,18 @@
 package com.artonov.talenet.ui.story
 
+import android.app.ProgressDialog.show
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.artonov.talenet.R
 import com.artonov.talenet.data.di.Injector
+import com.artonov.talenet.data.response.ListStoryItem
 import com.artonov.talenet.databinding.ActivityStoryBinding
 import com.artonov.talenet.ui.login.LoginActivity
 import kotlinx.coroutines.launch
@@ -24,6 +28,19 @@ class StoryActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        val adapter = StoryAdapter()
+        binding.rvStories.adapter = adapter
+        binding.rvStories.layoutManager = LinearLayoutManager(this)
+
+        viewModel.listStory.observe(this) { storyResponse ->
+            adapter.submitList(storyResponse)
+        }
+
+        viewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+
+        viewModel.showStories()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -44,5 +61,9 @@ class StoryActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
     }
 }
