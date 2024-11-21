@@ -1,12 +1,16 @@
 package com.artonov.talenet.ui.story
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.artonov.talenet.data.response.ListStoryItem
 import com.artonov.talenet.databinding.ItemStoryCardBinding
+import com.artonov.talenet.ui.story_detail.StoryDetailActivity
 import com.bumptech.glide.Glide
 
 class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.ViewHolder>(DIFF_CALLBACK) {
@@ -34,7 +38,13 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.ViewHolder>(DIFF_CA
         val story = getItem(position)
         holder.bind(story)
 
+        holder.itemView.setOnClickListener() {
+            val context = holder.itemView.context
 
+            val intent = Intent(context, StoryDetailActivity::class.java)
+            intent.putExtra(StoryDetailActivity.EXTRA_STORY_ID, story.id)
+            startActivity(context, intent, null)
+        }
     }
 
     companion object {

@@ -23,4 +23,5 @@
     <string name="login_fail">Login gagal</string>
     <string name="image_story_content_desc">gambar dari story</string>
     <string name="fab_addstory_content_desc">tambah cerita</string>
+    <string name="story_image_content_description">gambar dari story</string>
 </resources>

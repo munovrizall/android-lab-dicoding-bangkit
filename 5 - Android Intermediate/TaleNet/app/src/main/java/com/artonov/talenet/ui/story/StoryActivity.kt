@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -41,6 +42,10 @@ class StoryActivity : AppCompatActivity() {
         }
 
         viewModel.showStories()
+
+        viewModel.errorMessage.observe(this) {
+            if (it != null) Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

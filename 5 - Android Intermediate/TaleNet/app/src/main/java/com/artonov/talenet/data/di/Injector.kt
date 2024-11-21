@@ -6,6 +6,7 @@ import com.artonov.talenet.data.ViewModelFactory
 import com.artonov.talenet.data.preference.UserPreference
 import com.artonov.talenet.data.repository.LoginRepository
 import com.artonov.talenet.data.repository.RegisterRepository
+import com.artonov.talenet.data.repository.StoryDetailRepository
 import com.artonov.talenet.data.repository.StoryRepository
 import com.artonov.talenet.data.retrofit.ApiConfig
 import kotlinx.coroutines.flow.first
@@ -45,7 +46,7 @@ object Injector {
         return ViewModelFactory(loginRepository = loginRepository, userPreference = userPreference)
     }
 
-    fun provideStoryRepository(context: Context): StoryRepository {
+    private fun provideStoryRepository(context: Context): StoryRepository {
         val userPreference = provideUserPreference(context)
         val user = runBlocking { userPreference.getUser().first() }
         val apiService = ApiConfig.getApiService(user.token)
@@ -56,5 +57,18 @@ object Injector {
         val storyRepository = provideStoryRepository(context)
         val userPreference = provideUserPreference(context)
         return ViewModelFactory(storyRepository = storyRepository, userPreference = userPreference)
+    }
+
+    private fun provideStoryDetailRepository(context: Context): StoryDetailRepository {
+        val userPreference = provideUserPreference(context)
+        val user = runBlocking { userPreference.getUser().first() }
+        val apiService = ApiConfig.getApiService(user.token)
+        return StoryDetailRepository.getInstance(apiService, userPreference)
+    }
+
+    fun provideStoryDetailViewModelFactory(context: Context): ViewModelFactory {
+        val storyDetailRepository = provideStoryDetailRepository(context)
+        val userPreference = provideUserPreference(context)
+        return ViewModelFactory(storyDetailRepository = storyDetailRepository, userPreference = userPreference)
     }
 }
