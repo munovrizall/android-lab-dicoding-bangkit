@@ -4,6 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -42,6 +43,10 @@ class LoginActivity : AppCompatActivity() {
             val password = binding.edLoginPassword.editText?.text.toString()
 
             viewModel.login(email, password)
+        }
+
+        binding.settingImageView.setOnClickListener {
+            startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
         }
 
         viewModel.loginResult.observe(this) { response ->
