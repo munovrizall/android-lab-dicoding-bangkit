@@ -1,19 +1,14 @@
 package com.artonov.talenet.ui.story_detail
 
 import android.os.Bundle
-import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.artonov.talenet.R
 import com.artonov.talenet.data.di.Injector
 import com.artonov.talenet.databinding.ActivityStoryDetailBinding
-import com.artonov.talenet.ui.story.StoryViewModel
 import com.bumptech.glide.Glide
 
 class StoryDetailActivity : AppCompatActivity() {
@@ -65,6 +60,7 @@ class StoryDetailActivity : AppCompatActivity() {
                 onBackPressed()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

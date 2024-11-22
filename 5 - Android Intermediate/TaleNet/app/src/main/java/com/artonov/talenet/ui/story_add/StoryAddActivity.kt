@@ -1,8 +1,6 @@
 package com.artonov.talenet.ui.story_add
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -13,13 +11,11 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.artonov.talenet.R
 import com.artonov.talenet.data.di.Injector
 import com.artonov.talenet.databinding.ActivityStoryAddBinding
 import com.artonov.talenet.ui.story.StoryActivity
-import com.artonov.talenet.ui.story.StoryViewModel
 import com.artonov.talenet.utils.getImageUri
 import com.artonov.talenet.utils.reduceFileImage
 import com.artonov.talenet.utils.uriToFile
@@ -28,7 +24,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.HttpException
 
 class StoryAddActivity : AppCompatActivity() {
 
@@ -38,21 +33,6 @@ class StoryAddActivity : AppCompatActivity() {
             this
         )
     }
-
-//    private val requestPermissionLauncher =
-//        registerForActivityResult(
-//            ActivityResultContracts.RequestPermission()
-//        ) { isGranted: Boolean ->
-//            if (isGranted) {
-//                Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//
-//    private fun allPermissionsGranted() =
-//        ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSION
-//        ) == PackageManager.PERMISSION_GRANTED
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

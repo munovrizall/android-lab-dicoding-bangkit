@@ -14,7 +14,7 @@ import okhttp3.RequestBody
 class StoryAddViewModel(
     private val userPreference: UserPreference,
     private val repository: StoryAddRepository
-) : ViewModel(){
+) : ViewModel() {
 
     private val _uploadResult = MutableLiveData<Boolean>()
     val uploadResult: LiveData<Boolean> = _uploadResult

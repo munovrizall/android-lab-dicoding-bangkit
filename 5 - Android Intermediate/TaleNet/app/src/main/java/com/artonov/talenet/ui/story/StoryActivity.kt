@@ -1,6 +1,5 @@
 package com.artonov.talenet.ui.story
 
-import android.app.ProgressDialog.show
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -13,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.artonov.talenet.R
 import com.artonov.talenet.data.di.Injector
-import com.artonov.talenet.data.response.ListStoryItem
 import com.artonov.talenet.databinding.ActivityStoryBinding
 import com.artonov.talenet.ui.login.LoginActivity
 import com.artonov.talenet.ui.story_add.StoryAddActivity
@@ -70,6 +68,7 @@ class StoryActivity : AppCompatActivity() {
                 }
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

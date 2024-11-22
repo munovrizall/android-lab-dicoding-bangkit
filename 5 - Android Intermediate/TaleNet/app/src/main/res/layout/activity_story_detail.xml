@@ -20,8 +20,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/appbar_menu"
-            app:theme="@style/ToolbarTheme"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ToolbarTheme"
             app:title="TaleNet"
             app:titleTextColor="@color/white" />
 
@@ -32,48 +32,48 @@
             android:contentDescription="@string/story_image_content_description"
             android:scaleType="centerCrop"
             android:transitionName="photo"
-            tools:src="@tools:sample/avatars"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/tv_detail_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:textSize="20sp"
-            tools:text="name"
-            android:transitionName="name"
             android:textAlignment="center"
+            android:textSize="20sp"
             android:textStyle="bold"
+            android:transitionName="name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_detail_photo" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_detail_photo"
+            tools:text="name" />
 
         <TextView
             android:id="@+id/tv_detail_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="lorem ipsum sit dolor amet"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_detail_name"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_name"
+            tools:text="lorem ipsum sit dolor amet" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

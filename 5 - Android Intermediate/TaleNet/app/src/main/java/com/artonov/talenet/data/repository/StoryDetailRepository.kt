@@ -4,7 +4,6 @@ import android.util.Log
 import com.artonov.talenet.data.preference.UserPreference
 import com.artonov.talenet.data.response.ErrorResponse
 import com.artonov.talenet.data.response.StoryDetailResponse
-import com.artonov.talenet.data.response.StoryResponse
 import com.artonov.talenet.data.retrofit.ApiService
 import com.google.gson.Gson
 import retrofit2.HttpException

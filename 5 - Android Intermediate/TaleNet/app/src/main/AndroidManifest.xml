@@ -16,9 +16,6 @@
         android:theme="@style/Theme.TaleNet"
         tools:targetApi="31">
         <activity
-            android:name=".ui.story_add.ActivityCamera"
-            android:exported="false" />
-        <activity
             android:name=".ui.story_add.StoryAddActivity"
             android:exported="false" />
         <activity

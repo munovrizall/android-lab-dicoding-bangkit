@@ -3,7 +3,6 @@ package com.artonov.talenet.data.repository
 import android.util.Log
 import com.artonov.talenet.data.response.ErrorResponse
 import com.artonov.talenet.data.response.LoginResponse
-import com.artonov.talenet.data.response.RegisterResponse
 import com.artonov.talenet.data.retrofit.ApiService
 import com.google.gson.Gson
 import retrofit2.HttpException

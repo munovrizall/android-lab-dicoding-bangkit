@@ -4,13 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.artonov.talenet.data.preference.UserPreference
 import com.artonov.talenet.data.repository.StoryDetailRepository
-import com.artonov.talenet.data.repository.StoryRepository
-import com.artonov.talenet.data.response.ListStoryItem
 import com.artonov.talenet.data.response.Story
-import com.artonov.talenet.data.response.StoryDetailResponse
-import com.artonov.talenet.data.response.StoryResponse
 import kotlinx.coroutines.launch
 
 class StoryDetailViewModel(

@@ -11,6 +11,7 @@
         android:id="@+id/iv_login"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:contentDescription="@string/register_image_content_desription"
         android:src="@drawable/regist_character"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

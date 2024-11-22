@@ -29,18 +29,23 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(registerRepository!!) as T
             }
+
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(loginRepository!!, userPreference!!) as T
             }
+
             modelClass.isAssignableFrom(StoryViewModel::class.java) -> {
                 StoryViewModel(userPreference!!, storyRepository!!) as T
             }
+
             modelClass.isAssignableFrom(StoryDetailViewModel::class.java) -> {
                 StoryDetailViewModel(storyDetailRepository!!) as T
             }
+
             modelClass.isAssignableFrom(StoryAddViewModel::class.java) -> {
                 StoryAddViewModel(userPreference!!, storyAddRepository!!) as T
             }
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }

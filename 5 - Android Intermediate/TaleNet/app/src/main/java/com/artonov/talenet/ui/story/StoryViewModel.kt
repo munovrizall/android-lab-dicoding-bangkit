@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.artonov.talenet.data.preference.UserPreference
 import com.artonov.talenet.data.repository.StoryRepository
 import com.artonov.talenet.data.response.ListStoryItem
-import com.artonov.talenet.data.response.StoryResponse
 import kotlinx.coroutines.launch
 
 class StoryViewModel(

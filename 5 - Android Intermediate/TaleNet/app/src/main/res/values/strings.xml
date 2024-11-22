@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">TaleNet</string>
     <string name="masukkan_password">Masukkan Password</string>
-    <string name="masukkan_password_anda">masukkan password anda</string>
     <string name="masukkan_email">Masukkan Email</string>
     <string name="email_error">Format email salah</string>
     <string name="password_error">Password tidak boleh kurang dari 8 karakter</string>
@@ -30,4 +29,9 @@
     <string name="enter_story_description">Masukkan deskripsi\n</string>
     <string name="image_uploaded">Gambar terunggah</string>
     <string name="uploaded_image_content_description">gambar yang akan diupload</string>
+    <string name="login_image_content_description">Gambar karakter login</string>
+    <string name="register_image_content_desription">Gambar karakter register</string>
+    <string name="talenet">TaleNet.</string>
+    <string name="connecting_everyone_everywhere">Connecting everyone everywhere</string>
+    <string name="logout">Logout</string>
 </resources>
