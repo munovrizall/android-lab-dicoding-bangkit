@@ -1,6 +1,7 @@
 package com.artonov.talenet.ui.story_add
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -13,28 +14,45 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import com.artonov.talenet.R
+import com.artonov.talenet.data.di.Injector
 import com.artonov.talenet.databinding.ActivityStoryAddBinding
+import com.artonov.talenet.ui.story.StoryActivity
+import com.artonov.talenet.ui.story.StoryViewModel
 import com.artonov.talenet.utils.getImageUri
+import com.artonov.talenet.utils.reduceFileImage
+import com.artonov.talenet.utils.uriToFile
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.HttpException
 
 class StoryAddActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStoryAddBinding
-    private val viewModel: StoryAddViewModel by viewModels()
+    private val viewModel: StoryAddViewModel by viewModels {
+        Injector.provideStoryAddViewModelFactory(
+            this
+        )
+    }
 
-    private val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-    private fun allPermissionsGranted() =
-        ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSION
-        ) == PackageManager.PERMISSION_GRANTED
+//    private val requestPermissionLauncher =
+//        registerForActivityResult(
+//            ActivityResultContracts.RequestPermission()
+//        ) { isGranted: Boolean ->
+//            if (isGranted) {
+//                Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show()
+//            } else {
+//                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//
+//    private fun allPermissionsGranted() =
+//        ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSION
+//        ) == PackageManager.PERMISSION_GRANTED
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,12 +68,34 @@ class StoryAddActivity : AppCompatActivity() {
             }
         }
 
-        binding.galleryButton.setOnClickListener{
+        viewModel.uploadResult.observe(this) { isSuccess ->
+            showLoading(false)
+            if (isSuccess) {
+                showToast(getString(R.string.image_uploaded))
+                val intent = Intent(this, StoryActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            } else {
+                viewModel.errorMessage.value?.let { showToast(it) }
+            }
+        }
+
+        binding.galleryButton.setOnClickListener {
             startGallery()
         }
 
-        binding.cameraButton.setOnClickListener(){
+        binding.cameraButton.setOnClickListener {
             startCamera()
+        }
+
+        binding.uploadButton.setOnClickListener {
+            if (viewModel.currentImageUri.value == null) {
+                showToast("Choose image first")
+            } else {
+                lifecycleScope.launch {
+                    uploadImage()
+                }
+            }
         }
     }
 
@@ -65,6 +105,7 @@ class StoryAddActivity : AppCompatActivity() {
                 onBackPressed()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -99,6 +140,22 @@ class StoryAddActivity : AppCompatActivity() {
         }
     }
 
+    private suspend fun uploadImage() {
+        val imageFile = uriToFile(viewModel.currentImageUri.value!!, this).reduceFileImage()
+        val description = binding.etDescription.editText?.text.toString()
+        showLoading(true)
+
+        val requestBody = description.toRequestBody("text/plain".toMediaType())
+        val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+        val multipartBody = MultipartBody.Part.createFormData(
+            "photo",
+            imageFile.name,
+            requestImageFile
+        )
+
+        viewModel.uploadImage(multipartBody, requestBody)
+    }
+
     private fun showImage() {
         viewModel.currentImageUri.value?.let { uri ->
             binding.previewImageView.setImageURI(uri)
@@ -111,10 +168,6 @@ class StoryAddActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    companion object {
-        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
     }
 
 }

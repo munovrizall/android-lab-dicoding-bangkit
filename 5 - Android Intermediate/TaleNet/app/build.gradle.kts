@@ -46,12 +46,15 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.camera.view)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.lottie)
     implementation(libs.glide)
+    implementation(libs.androidx.exifinterface)
+
 
     // Retrofit
     implementation(libs.retrofit)

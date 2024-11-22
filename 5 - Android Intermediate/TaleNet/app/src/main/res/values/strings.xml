@@ -28,4 +28,5 @@
     <string name="gallery">Galeri</string>
     <string name="upload">Buat Story</string>
     <string name="enter_story_description">Masukkan deskripsi\n</string>
+    <string name="image_uploaded">Gambar terunggah</string>
 </resources>
