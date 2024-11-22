@@ -41,13 +41,13 @@ class StoryDetailActivity : AppCompatActivity() {
         }
 
         viewModel.story.observe(this) { storyResponse ->
-            binding.tvItemName.text = storyResponse.name
-            binding.tvItemDescription.text = storyResponse.description
+            binding.tvDetailName.text = storyResponse.name
+            binding.tvDetailDescription.text = storyResponse.description
 
-            Glide.with(binding.ivItemPhoto.context)
+            Glide.with(binding.ivDetailPhoto.context)
                 .load(storyResponse.photoUrl)
                 .placeholder(R.drawable.img_placeholder)
-                .into(binding.ivItemPhoto)
+                .into(binding.ivDetailPhoto)
         }
 
         viewModel.isLoading.observe(this) {

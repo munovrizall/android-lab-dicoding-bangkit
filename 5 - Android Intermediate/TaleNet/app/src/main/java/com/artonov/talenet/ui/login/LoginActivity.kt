@@ -38,8 +38,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnLogin.setOnClickListener {
-            val email = binding.etEmail.editText?.text.toString()
-            val password = binding.etPassword.editText?.text.toString()
+            val email = binding.edLoginEmail.editText?.text.toString()
+            val password = binding.edLoginPassword.editText?.text.toString()
 
             viewModel.login(email, password)
         }
@@ -96,8 +96,8 @@ class LoginActivity : AppCompatActivity() {
 
         val title = ObjectAnimator.ofFloat(binding.tvTitle, View.ALPHA, 1f).setDuration(700)
         val subtitle = ObjectAnimator.ofFloat(binding.tvSubtitle, View.ALPHA, 1f).setDuration(700)
-        val email = ObjectAnimator.ofFloat(binding.etEmail, View.ALPHA, 1f).setDuration(700)
-        val password = ObjectAnimator.ofFloat(binding.etPassword, View.ALPHA, 1f).setDuration(700)
+        val email = ObjectAnimator.ofFloat(binding.edLoginEmail, View.ALPHA, 1f).setDuration(700)
+        val password = ObjectAnimator.ofFloat(binding.edLoginPassword, View.ALPHA, 1f).setDuration(700)
         val login = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(700)
         val registerPrompt =
             ObjectAnimator.ofFloat(binding.tvRegister, View.ALPHA, 1f).setDuration(700)

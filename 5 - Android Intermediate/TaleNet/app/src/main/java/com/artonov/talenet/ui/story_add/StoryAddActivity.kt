@@ -88,7 +88,7 @@ class StoryAddActivity : AppCompatActivity() {
             startCamera()
         }
 
-        binding.uploadButton.setOnClickListener {
+        binding.buttonAdd.setOnClickListener {
             if (viewModel.currentImageUri.value == null) {
                 showToast("Choose image first")
             } else {
@@ -142,7 +142,7 @@ class StoryAddActivity : AppCompatActivity() {
 
     private suspend fun uploadImage() {
         val imageFile = uriToFile(viewModel.currentImageUri.value!!, this).reduceFileImage()
-        val description = binding.etDescription.editText?.text.toString()
+        val description = binding.edAddDescription.editText?.text.toString()
         showLoading(true)
 
         val requestBody = description.toRequestBody("text/plain".toMediaType())

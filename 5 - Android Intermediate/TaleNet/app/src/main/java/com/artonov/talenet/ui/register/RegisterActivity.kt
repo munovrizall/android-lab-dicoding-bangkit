@@ -2,12 +2,9 @@ package com.artonov.talenet.ui.register
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import android.transition.Fade
 import android.view.View
-import android.view.Window
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -34,31 +31,31 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.btnRegister.setOnClickListener {
-            val name = binding.etName.editText?.text.toString()
-            val email = binding.etEmail.editText?.text.toString()
-            val password = binding.etPassword.editText?.text.toString()
+            val name = binding.edRegisterName.editText?.text.toString()
+            val email = binding.edRegisterEmail.editText?.text.toString()
+            val password = binding.edRegisterPassword.editText?.text.toString()
 
             var isValid = true
 
             if (name.isEmpty()) {
-                binding.etName.error = getString(R.string.et_name_error)
+                binding.edRegisterName.error = getString(R.string.et_name_error)
                 isValid = false
             } else {
-                binding.etName.error = null
+                binding.edRegisterName.error = null
             }
 
             if (email.isEmpty()) {
-                binding.etEmail.error = getString(R.string.error_email_empty)
+                binding.edRegisterEmail.error = getString(R.string.error_email_empty)
                 isValid = false
             } else {
-                binding.etEmail.error = null
+                binding.edRegisterEmail.error = null
             }
 
             if (password.isEmpty()) {
-                binding.etPassword.error = getString(R.string.error_password_empty)
+                binding.edRegisterPassword.error = getString(R.string.error_password_empty)
                 isValid = false
             } else {
-                binding.etPassword.error = null
+                binding.edRegisterPassword.error = null
             }
 
             if (isValid) {
@@ -101,9 +98,9 @@ class RegisterActivity : AppCompatActivity() {
         }.start()
 
         val title = ObjectAnimator.ofFloat(binding.tvTitle, View.ALPHA, 1f).setDuration(700)
-        val name = ObjectAnimator.ofFloat(binding.etName, View.ALPHA, 1f).setDuration(700)
-        val email = ObjectAnimator.ofFloat(binding.etEmail, View.ALPHA, 1f).setDuration(700)
-        val password = ObjectAnimator.ofFloat(binding.etPassword, View.ALPHA, 1f).setDuration(700)
+        val name = ObjectAnimator.ofFloat(binding.edRegisterName, View.ALPHA, 1f).setDuration(700)
+        val email = ObjectAnimator.ofFloat(binding.edRegisterEmail, View.ALPHA, 1f).setDuration(700)
+        val password = ObjectAnimator.ofFloat(binding.edRegisterPassword, View.ALPHA, 1f).setDuration(700)
         val register = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(700)
         val loginPrompt = ObjectAnimator.ofFloat(binding.tvLogin, View.ALPHA, 1f).setDuration(700)
 
