@@ -50,7 +50,7 @@ class ViewModelFactory(
             }
 
             modelClass.isAssignableFrom(StoryWithLocationViewModel::class.java) -> {
-                StoryWithLocationViewModel(userPreference!!, storyWithLocationRepository!!) as T
+                StoryWithLocationViewModel(storyWithLocationRepository!!) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

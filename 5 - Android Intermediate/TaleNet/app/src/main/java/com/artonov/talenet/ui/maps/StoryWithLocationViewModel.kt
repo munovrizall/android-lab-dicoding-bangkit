@@ -10,7 +10,6 @@ import com.artonov.talenet.data.response.ListStoryItem
 import kotlinx.coroutines.launch
 
 class StoryWithLocationViewModel(
-    private val userPreference: UserPreference,
     private val repository: StoryWithLocationRepository
 ) : ViewModel() {
 
@@ -35,12 +34,6 @@ class StoryWithLocationViewModel(
             } finally {
                 _isLoading.value = false
             }
-        }
-    }
-
-    fun logout() {
-        viewModelScope.launch {
-            userPreference.clearToken()
         }
     }
 }
