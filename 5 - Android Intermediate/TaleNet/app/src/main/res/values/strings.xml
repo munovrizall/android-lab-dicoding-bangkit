@@ -34,4 +34,6 @@
     <string name="talenet">TaleNet.</string>
     <string name="connecting_everyone_everywhere">Connecting everyone everywhere</string>
     <string name="logout">Logout</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="maps">Maps\n</string>
 </resources>

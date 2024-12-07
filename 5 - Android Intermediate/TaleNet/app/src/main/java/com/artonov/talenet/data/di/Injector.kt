@@ -9,6 +9,7 @@ import com.artonov.talenet.data.repository.RegisterRepository
 import com.artonov.talenet.data.repository.StoryAddRepository
 import com.artonov.talenet.data.repository.StoryDetailRepository
 import com.artonov.talenet.data.repository.StoryRepository
+import com.artonov.talenet.data.repository.StoryWithLocationRepository
 import com.artonov.talenet.data.retrofit.ApiConfig
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -88,6 +89,22 @@ object Injector {
         val userPreference = provideUserPreference(context)
         return ViewModelFactory(
             storyAddRepository = storyAddRepository,
+            userPreference = userPreference
+        )
+    }
+
+    private fun provideStoryWithLocationRepository(context: Context): StoryWithLocationRepository {
+        val userPreference = provideUserPreference(context)
+        val user = runBlocking { userPreference.getUser().first() }
+        val apiService = ApiConfig.getApiService(user.token)
+        return StoryWithLocationRepository.getInstance(apiService, userPreference)
+    }
+
+    fun provideStoryWithLocationViewModelFactory(context: Context): ViewModelFactory {
+        val storyWithLocation = provideStoryWithLocationRepository(context)
+        val userPreference = provideUserPreference(context)
+        return ViewModelFactory(
+            storyWithLocationRepository = storyWithLocation,
             userPreference = userPreference
         )
     }

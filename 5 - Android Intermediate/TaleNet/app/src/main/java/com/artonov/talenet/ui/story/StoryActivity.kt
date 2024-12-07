@@ -14,6 +14,7 @@ import com.artonov.talenet.R
 import com.artonov.talenet.data.di.Injector
 import com.artonov.talenet.databinding.ActivityStoryBinding
 import com.artonov.talenet.ui.login.LoginActivity
+import com.artonov.talenet.ui.maps.MapsActivity
 import com.artonov.talenet.ui.story_add.StoryAddActivity
 import kotlinx.coroutines.launch
 
@@ -63,6 +64,14 @@ class StoryActivity : AppCompatActivity() {
                 lifecycleScope.launch {
                     viewModel.logout()
                     val intent = Intent(this@StoryActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                true
+            }
+            R.id.action_maps -> {
+                lifecycleScope.launch {
+                    val intent = Intent(this@StoryActivity, MapsActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
