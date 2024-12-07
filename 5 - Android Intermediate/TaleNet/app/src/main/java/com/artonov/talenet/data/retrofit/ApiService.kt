@@ -1,6 +1,7 @@
 package com.artonov.talenet.data.retrofit
 
 import com.artonov.talenet.data.response.FileUploadResponse
+import com.artonov.talenet.data.response.ListStoryItem
 import com.artonov.talenet.data.response.LoginResponse
 import com.artonov.talenet.data.response.RegisterResponse
 import com.artonov.talenet.data.response.StoryDetailResponse
@@ -32,9 +33,6 @@ interface ApiService {
         @Field("password") password: String
     ): LoginResponse
 
-    @GET("stories")
-    suspend fun getStories(): StoryResponse
-
     @GET("stories/{id}")
     suspend fun getStoryDetail(
         @Path("id") id: String
@@ -48,7 +46,13 @@ interface ApiService {
     ): FileUploadResponse
 
     @GET("stories")
+    suspend fun getStories(
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20
+    ): StoryResponse
+
+    @GET("stories")
     suspend fun getStoriesWithLocation(
-        @Query("location") location : Int = 1,
+        @Query("location") location: Int = 1,
     ): StoryResponse
 }

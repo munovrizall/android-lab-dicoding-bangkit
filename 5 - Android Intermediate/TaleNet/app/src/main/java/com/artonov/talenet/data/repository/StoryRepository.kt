@@ -1,28 +1,28 @@
 package com.artonov.talenet.data.repository
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
+import com.artonov.talenet.data.StoryPagingSource
 import com.artonov.talenet.data.preference.UserPreference
-import com.artonov.talenet.data.response.ErrorResponse
-import com.artonov.talenet.data.response.StoryResponse
+import com.artonov.talenet.data.response.ListStoryItem
 import com.artonov.talenet.data.retrofit.ApiService
-import com.google.gson.Gson
-import retrofit2.HttpException
 
 class StoryRepository(
     private val apiService: ApiService,
     private val userPreference: UserPreference
 ) {
-    suspend fun getStories(): StoryResponse {
-        return try {
-            val response = apiService.getStories()
-            Log.d("StoryRepository", "Success: $response")
-            response
-        } catch (e: HttpException) {
-            val jsonInString = e.response()?.errorBody()?.string()
-            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-            Log.e("StoryRepository", "Error: ${e.message}")
-            throw Exception(errorBody.message)
-        }
+    fun getStories(): LiveData<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                StoryPagingSource(apiService)
+            }
+        ).liveData
     }
 
     companion object {

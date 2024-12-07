@@ -2,6 +2,7 @@ package com.artonov.talenet.ui.story
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -33,9 +34,12 @@ class StoryActivity : AppCompatActivity() {
         binding.rvStories.adapter = adapter
         binding.rvStories.layoutManager = LinearLayoutManager(this)
 
-        viewModel.listStory.observe(this) { storyResponse ->
-            adapter.submitList(storyResponse)
+        viewModel.stories.observe(this) { pagingData ->
+            Log.d("StoryActivity", "PagingData received: $pagingData")
+            adapter.submitData(lifecycle, pagingData) // Kirimkan PagingData ke adapter
         }
+
+
 
         viewModel.isLoading.observe(this) {
             showLoading(it)
@@ -69,6 +73,7 @@ class StoryActivity : AppCompatActivity() {
                 }
                 true
             }
+
             R.id.action_maps -> {
                 lifecycleScope.launch {
                     val intent = Intent(this@StoryActivity, MapsActivity::class.java)

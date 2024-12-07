@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.artonov.talenet.data.preference.UserPreference
 import com.artonov.talenet.data.repository.StoryRepository
 import com.artonov.talenet.data.response.ListStoryItem
@@ -14,8 +16,9 @@ class StoryViewModel(
     private val repository: StoryRepository
 ) : ViewModel() {
 
-    private val _listStory = MutableLiveData<List<ListStoryItem>>()
-    val listStory: LiveData<List<ListStoryItem>> = _listStory
+    var stories: LiveData<PagingData<ListStoryItem>> =
+        repository.getStories().cachedIn(viewModelScope)
+
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -29,7 +32,7 @@ class StoryViewModel(
         viewModelScope.launch {
             try {
                 val response = repository.getStories()
-                _listStory.value = response.listStory
+                stories = response.cachedIn(viewModelScope)
             } catch (e: Exception) {
                 _errorMessage.value = e.message
             } finally {

@@ -2,6 +2,7 @@ package com.artonov.talenet.ui.story
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
@@ -15,20 +16,20 @@ import com.artonov.talenet.databinding.ItemStoryCardBinding
 import com.artonov.talenet.ui.story_detail.StoryDetailActivity
 import com.bumptech.glide.Glide
 import androidx.core.util.Pair
+import androidx.paging.PagingDataAdapter
 
-class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.ViewHolder>(DIFF_CALLBACK) {
+class StoryAdapter : PagingDataAdapter<ListStoryItem, StoryAdapter.ViewHolder>(DIFF_CALLBACK) {
+
     class ViewHolder(private val binding: ItemStoryCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(storyItem: ListStoryItem) {
             binding.apply {
-                tvItemName.text = storyItem.name
+                tvItemName.text = storyItem.name ?: "Unknown" // Default jika nama kosong
+                Glide.with(binding.ivItemPhoto.context)
+                    .load(storyItem.photoUrl)
+                    .into(binding.ivItemPhoto)
             }
-
-            Glide.with(binding.ivItemPhoto.context)
-                .load(storyItem.photoUrl)
-                .into(binding.ivItemPhoto)
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,7 +40,9 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.ViewHolder>(DIFF_CA
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val story = getItem(position)
-        holder.bind(story)
+        if (story != null) {
+            holder.bind(story)
+        }
 
         holder.itemView.setOnClickListener {
             val optionsCompat: ActivityOptionsCompat =
@@ -52,7 +55,7 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.ViewHolder>(DIFF_CA
             val context = holder.itemView.context
 
             val intent = Intent(context, StoryDetailActivity::class.java)
-            intent.putExtra(StoryDetailActivity.EXTRA_STORY_ID, story.id)
+            intent.putExtra(StoryDetailActivity.EXTRA_STORY_ID, story?.id)
             startActivity(context, intent, optionsCompat.toBundle())
         }
     }
@@ -63,16 +66,15 @@ class StoryAdapter : ListAdapter<ListStoryItem, StoryAdapter.ViewHolder>(DIFF_CA
                 oldItem: ListStoryItem,
                 newItem: ListStoryItem
             ): Boolean {
-                return oldItem == newItem
+                return oldItem.id == newItem.id // Periksa ID agar bisa membandingkan item dengan benar
             }
 
             override fun areContentsTheSame(
                 oldItem: ListStoryItem,
                 newItem: ListStoryItem
             ): Boolean {
-                return oldItem == newItem
+                return oldItem == newItem // Membandingkan semua konten
             }
-
         }
     }
 }

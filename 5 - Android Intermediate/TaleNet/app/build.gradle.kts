@@ -69,4 +69,7 @@ dependencies {
 
     // Datastore
     implementation(libs.androidx.datastore.preferences)
+
+    // Paging
+    implementation(libs.androidx.paging.runtime.ktx)
 }
