@@ -13,7 +13,8 @@ import okhttp3.RequestBody
 
 class StoryAddViewModel(
     private val userPreference: UserPreference,
-    private val repository: StoryAddRepository
+    private val repository: StoryAddRepository,
+    private val locationService: LocationService
 ) : ViewModel() {
 
     private val _uploadResult = MutableLiveData<Boolean>()
@@ -28,13 +29,26 @@ class StoryAddViewModel(
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
-    suspend fun uploadImage(file: MultipartBody.Part, description: RequestBody) {
+    private var latitude: Float? = null
+    private var longitude: Float? = null
+
+    suspend fun uploadImage(
+        file: MultipartBody.Part,
+        description: RequestBody,
+        withLocation: Boolean
+    ) {
         _isLoading.value = true
         _errorMessage.value = null
 
+        if (withLocation) {
+            val location = locationService.getCurrentLocation()
+            latitude = location?.latitude?.toFloat()
+            longitude = location?.longitude?.toFloat()
+        }
+
         viewModelScope.launch {
             try {
-                val response = repository.uploadImage(file, description)
+                val response = repository.uploadImage(file, description, latitude, longitude)
                 _uploadResult.value = true
             } catch (e: Exception) {
                 _errorMessage.value = e.message

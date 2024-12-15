@@ -1,6 +1,7 @@
 package com.artonov.talenet.ui.story_add
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
 import com.artonov.talenet.R
 import com.artonov.talenet.data.di.Injector
@@ -29,10 +31,9 @@ class StoryAddActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStoryAddBinding
     private val viewModel: StoryAddViewModel by viewModels {
-        Injector.provideStoryAddViewModelFactory(
-            this
-        )
+        Injector.provideStoryAddViewModelFactory(applicationContext)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +42,8 @@ class StoryAddActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        checkLocationPermission()
 
         viewModel.currentImageUri.observe(this) { uri ->
             uri?.let {
@@ -133,7 +136,8 @@ class StoryAddActivity : AppCompatActivity() {
             requestImageFile
         )
 
-        viewModel.uploadImage(multipartBody, requestBody)
+        val withLocation = binding.checkBoxUploadWithLocation.isChecked
+        viewModel.uploadImage(multipartBody, requestBody, withLocation)
     }
 
     private fun showImage() {
@@ -150,4 +154,25 @@ class StoryAddActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
+    private fun checkLocationPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+        }
+    }
+
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 100
+    }
 }

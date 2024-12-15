@@ -17,10 +17,19 @@ class StoryAddRepository(
 
     suspend fun uploadImage(
         file: MultipartBody.Part,
-        description: RequestBody
+        description: RequestBody,
+        latitude: Float?,
+        longitude: Float?
     ): FileUploadResponse {
+        val latBody: RequestBody? = latitude?.let {
+            RequestBody.create(MultipartBody.FORM, it.toString())
+        }
+        val lonBody: RequestBody? = longitude?.let {
+            RequestBody.create(MultipartBody.FORM, it.toString())
+        }
+
         return try {
-            val response = apiService.uploadImage(file, description)
+            val response = apiService.uploadImage(file, description, latBody, lonBody)
             Log.d("StoryAddRepository", "Success: $response")
             response
         } catch (e: HttpException) {

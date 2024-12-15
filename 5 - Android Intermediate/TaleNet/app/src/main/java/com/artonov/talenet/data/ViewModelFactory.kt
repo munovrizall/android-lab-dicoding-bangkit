@@ -13,6 +13,7 @@ import com.artonov.talenet.ui.story.StoryViewModel
 import com.artonov.talenet.ui.login.LoginViewModel
 import com.artonov.talenet.ui.maps.StoryWithLocationViewModel
 import com.artonov.talenet.ui.register.RegisterViewModel
+import com.artonov.talenet.ui.story_add.LocationService
 import com.artonov.talenet.ui.story_add.StoryAddViewModel
 import com.artonov.talenet.ui.story_detail.StoryDetailViewModel
 
@@ -23,7 +24,8 @@ class ViewModelFactory(
     private val storyDetailRepository: StoryDetailRepository? = null,
     private val storyAddRepository: StoryAddRepository? = null,
     private val storyWithLocationRepository: StoryWithLocationRepository? = null,
-    private val userPreference: UserPreference? = null
+    private val userPreference: UserPreference? = null,
+    private val locationService: LocationService? = null
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
@@ -46,7 +48,7 @@ class ViewModelFactory(
             }
 
             modelClass.isAssignableFrom(StoryAddViewModel::class.java) -> {
-                StoryAddViewModel(userPreference!!, storyAddRepository!!) as T
+                StoryAddViewModel(userPreference!!, storyAddRepository!!, locationService!!) as T
             }
 
             modelClass.isAssignableFrom(StoryWithLocationViewModel::class.java) -> {

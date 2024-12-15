@@ -57,7 +57,6 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.androidx.exifinterface)
 
-
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
@@ -72,7 +71,7 @@ dependencies {
 
     // Paging
     implementation(libs.androidx.paging.runtime.ktx)
-    implementation (libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.core)
 
     androidTestImplementation(libs.androidx.core.testing) //InstantTaskExecutorRule
     androidTestImplementation(libs.kotlinx.coroutines.test) //TestDispatcher
@@ -81,4 +80,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test) //TestDispatcher
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
+
+    // Location
+    implementation(libs.play.services.location)
 }
