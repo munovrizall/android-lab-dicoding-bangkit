@@ -26,21 +26,6 @@ class StoryViewModel(
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
-    fun showStories() {
-        _isLoading.value = true
-        _errorMessage.value = null
-        viewModelScope.launch {
-            try {
-                val response = repository.getStories()
-                stories = response.cachedIn(viewModelScope)
-            } catch (e: Exception) {
-                _errorMessage.value = e.message
-            } finally {
-                _isLoading.value = false
-            }
-        }
-    }
-
     fun logout() {
         viewModelScope.launch {
             userPreference.clearToken()

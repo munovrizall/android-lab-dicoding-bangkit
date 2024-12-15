@@ -35,17 +35,18 @@ class StoryActivity : AppCompatActivity() {
         binding.rvStories.layoutManager = LinearLayoutManager(this)
 
         viewModel.stories.observe(this) { pagingData ->
-            Log.d("StoryActivity", "PagingData received: $pagingData")
-            adapter.submitData(lifecycle, pagingData) // Kirimkan PagingData ke adapter
+            if (pagingData != null) {
+                Log.d("StoryActivity", "PagingData received: $pagingData")
+                adapter.submitData(lifecycle, pagingData)
+            } else {
+                Log.d("StoryActivity", "PagingData is null")
+            }
         }
-
-
 
         viewModel.isLoading.observe(this) {
+            Log.d("Loading", "isLoading: $it")
             showLoading(it)
         }
-
-        viewModel.showStories()
 
         viewModel.errorMessage.observe(this) {
             if (it != null) Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
