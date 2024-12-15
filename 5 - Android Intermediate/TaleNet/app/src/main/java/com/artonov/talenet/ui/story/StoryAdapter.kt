@@ -2,21 +2,19 @@ package com.artonov.talenet.ui.story
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.util.Pair
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.artonov.talenet.R
 import com.artonov.talenet.data.response.ListStoryItem
 import com.artonov.talenet.databinding.ItemStoryCardBinding
 import com.artonov.talenet.ui.story_detail.StoryDetailActivity
 import com.bumptech.glide.Glide
-import androidx.core.util.Pair
-import androidx.paging.PagingDataAdapter
 
 class StoryAdapter : PagingDataAdapter<ListStoryItem, StoryAdapter.ViewHolder>(DIFF_CALLBACK) {
 
@@ -24,7 +22,7 @@ class StoryAdapter : PagingDataAdapter<ListStoryItem, StoryAdapter.ViewHolder>(D
         RecyclerView.ViewHolder(binding.root) {
         fun bind(storyItem: ListStoryItem) {
             binding.apply {
-                tvItemName.text = storyItem.name ?: "Unknown" // Default jika nama kosong
+                tvItemName.text = storyItem.name ?: "Unknown"
                 Glide.with(binding.ivItemPhoto.context)
                     .load(storyItem.photoUrl)
                     .into(binding.ivItemPhoto)
@@ -66,14 +64,14 @@ class StoryAdapter : PagingDataAdapter<ListStoryItem, StoryAdapter.ViewHolder>(D
                 oldItem: ListStoryItem,
                 newItem: ListStoryItem
             ): Boolean {
-                return oldItem.id == newItem.id // Periksa ID agar bisa membandingkan item dengan benar
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
                 oldItem: ListStoryItem,
                 newItem: ListStoryItem
             ): Boolean {
-                return oldItem == newItem // Membandingkan semua konten
+                return oldItem == newItem
             }
         }
     }

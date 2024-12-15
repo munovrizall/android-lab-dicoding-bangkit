@@ -36,4 +36,7 @@
     <string name="connecting_everyone_everywhere">Connecting everyone everywhere</string>
     <string name="logout">Keluar</string>
     <string name="upload_with_location">Upload dengan lokasi?</string>
+    <string name="setting_to_change_language">Pengaturan mengganti bahasa</string>
+    <string name="title_activity_maps">Maps</string>
+    <string name="maps">Maps\n</string>
 </resources>

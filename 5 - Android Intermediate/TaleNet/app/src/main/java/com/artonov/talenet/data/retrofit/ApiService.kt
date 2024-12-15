@@ -1,7 +1,6 @@
 package com.artonov.talenet.data.retrofit
 
 import com.artonov.talenet.data.response.FileUploadResponse
-import com.artonov.talenet.data.response.ListStoryItem
 import com.artonov.talenet.data.response.LoginResponse
 import com.artonov.talenet.data.response.RegisterResponse
 import com.artonov.talenet.data.response.StoryDetailResponse

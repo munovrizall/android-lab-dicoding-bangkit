@@ -3,41 +3,25 @@ package com.artonov.talenet.ui.maps
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.annotation.ColorInt
-import androidx.annotation.DrawableRes
-import androidx.core.app.NavUtils
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.artonov.talenet.R
 import com.artonov.talenet.data.di.Injector
-
-import com.google.android.gms.maps.CameraUpdateFactory
+import com.artonov.talenet.databinding.ActivityMapsBinding
+import com.artonov.talenet.ui.story.StoryActivity
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.artonov.talenet.databinding.ActivityMapsBinding
-import com.artonov.talenet.databinding.ActivityStoryBinding
-import com.artonov.talenet.ui.story.StoryActivity
-import com.artonov.talenet.ui.story.StoryViewModel
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -64,7 +48,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         viewModel.showStoriesWithLocation()
 
-        viewModel.listStory.observe(this) {
+        viewModel.listStory.observe(this) { it ->
             it.forEach { data ->
                 val latLng =
                     if (data.lat != null && data.lon != null) LatLng(data.lat, data.lon) else null

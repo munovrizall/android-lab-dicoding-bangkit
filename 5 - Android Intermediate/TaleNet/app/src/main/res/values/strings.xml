@@ -37,4 +37,5 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="maps">Maps\n</string>
     <string name="upload_with_location">Upload with Location?</string>
+    <string name="setting_to_change_language">Setting to change language</string>
 </resources>

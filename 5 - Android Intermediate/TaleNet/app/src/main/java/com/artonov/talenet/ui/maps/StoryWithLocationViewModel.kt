@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.artonov.talenet.data.preference.UserPreference
 import com.artonov.talenet.data.repository.StoryWithLocationRepository
 import com.artonov.talenet.data.response.ListStoryItem
 import kotlinx.coroutines.launch
