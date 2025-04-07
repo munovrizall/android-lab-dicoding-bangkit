@@ -32,6 +32,7 @@ import com.artonov.codelabjetcoffee.model.dummyBestSellerMenu
 import com.artonov.codelabjetcoffee.model.dummyCategory
 import com.artonov.codelabjetcoffee.model.dummyMenu
 import com.artonov.codelabjetcoffee.ui.components.CategoryItem
+import com.artonov.codelabjetcoffee.ui.components.HomeSection
 import com.artonov.codelabjetcoffee.ui.components.MenuItem
 import com.artonov.codelabjetcoffee.ui.components.Search
 import com.artonov.codelabjetcoffee.ui.components.SectionText
@@ -53,12 +54,18 @@ class MainActivity : ComponentActivity() {
 fun JetCoffeeApp(modifier: Modifier = Modifier) {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         Banner()
-        SectionText(stringResource(R.string.section_category))
-        CategoryRow()
-        SectionText(stringResource(R.string.section_favorite_menu))
-        MenuRow(dummyMenu)
-        SectionText(stringResource(R.string.section_best_seller_menu))
-        MenuRow(dummyBestSellerMenu)
+        HomeSection(
+            title = stringResource(R.string.section_category),
+            content = { CategoryRow() }
+        )
+        HomeSection(
+            title = stringResource(R.string.menu_favorite),
+            content = { MenuRow(dummyMenu) }
+        )
+        HomeSection(
+            title = stringResource(R.string.section_best_seller_menu),
+            content = { MenuRow(dummyBestSellerMenu) }
+        )
     }
 }
 
